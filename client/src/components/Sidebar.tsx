@@ -1,8 +1,13 @@
-import { Text } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+
 function Sidebar() {
+  
     return (
         <>
-            <Text>Hej Sidebar!</Text>
+          <Flex height="100vh">
+            <Box bg="pink" width="20em" />
+            <Box flex="1" bg="white" />
+          </Flex>
         </>
     );
 }
