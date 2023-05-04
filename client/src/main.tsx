@@ -6,11 +6,14 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { io } from "socket.io-client";
+
+
 import App from "./App";
+import SocketProvider from "./context/SocketContext";
 import "./index.css";
 
-export const socket = io("ws://localhost:3000");
+
+
 
 import StartPage from "./Pages/StartPage";
 import WelcomePage from "./Pages/WelcomePage";
@@ -26,6 +29,13 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+  
+
+
+    <SocketProvider>
+     <RouterProvider router={router} />
+      <App />
+    </SocketProvider>
+
   </React.StrictMode>
 );
