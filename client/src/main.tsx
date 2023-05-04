@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import App from "./App";
 import "./index.css";
 
-export const socket = io("ws://localhost:3000");
+export const socket = io();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
