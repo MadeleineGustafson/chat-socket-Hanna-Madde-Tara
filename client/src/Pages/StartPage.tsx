@@ -1,3 +1,5 @@
+import { Text } from "@chakra-ui/react";
+
 export default function StartPage() {
-  return <h1></h1>;
+  return <Text> Start</Text>;
 }
