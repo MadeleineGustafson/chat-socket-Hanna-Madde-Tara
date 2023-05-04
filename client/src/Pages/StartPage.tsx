@@ -1,5 +1,5 @@
-import { Text } from "@chakra-ui/react";
+import ChattBox from "../components/ChattBox";
 
 export default function StartPage() {
-  return <Text> Start</Text>;
+  return <ChattBox />;
 }
