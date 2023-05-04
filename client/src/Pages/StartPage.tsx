@@ -1,3 +1,5 @@
+import ChattBox from "../components/ChattBox";
+
 export default function StartPage() {
-  return <h1></h1>;
+  return <ChattBox />;
 }

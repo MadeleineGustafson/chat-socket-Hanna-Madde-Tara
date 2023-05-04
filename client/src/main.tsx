@@ -7,13 +7,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-
 import App from "./App";
 import SocketProvider from "./context/SocketContext";
 import "./index.css";
-
-
-
 
 import StartPage from "./Pages/StartPage";
 import WelcomePage from "./Pages/WelcomePage";
@@ -29,13 +25,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-  
-
-
     <SocketProvider>
-     <RouterProvider router={router} />
-      <App />
+      <RouterProvider router={router} />
     </SocketProvider>
-
   </React.StrictMode>
 );

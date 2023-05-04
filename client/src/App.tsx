@@ -1,11 +1,12 @@
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
     <>
       <ChakraProvider>
-        <Box>Hej</Box>
+        <Outlet />
       </ChakraProvider>
     </>
   );
