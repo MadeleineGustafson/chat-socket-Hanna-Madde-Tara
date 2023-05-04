@@ -13,15 +13,21 @@ function ChattBox() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
+    socket.on("message", handleNewMessage);
+
+    // cleanup function that removes the event listener when the component unmounts
+    return () => {
+      socket.off("message", handleNewMessage);
+    };
   }, [socket]);
+
+  const handleNewMessage = (message: string) => {
+    setMessages((messages) => [...messages, message]);
+  };
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (inputValue.trim() !== "") {
-      setMessages([...messages, inputValue]); // Add input value to messages
       socket.emit("message", inputValue);
       setInputValue("");
       setSubmitted(true);
