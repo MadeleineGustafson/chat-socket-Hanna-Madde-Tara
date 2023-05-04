@@ -1,9 +1,11 @@
 export interface ServerToClientEvents {
-  noArg: () => void;
+  message: (message: string) => void; // Lägga till användarnamn i framtiden?
 }
 
 export interface ClientToServerEvents {
-  hello: () => void;
+  message: (message: string) => void;
+  join: (join: string) => void;
+  leave: (leave: string) => void;
 }
 
 export interface InterServerEvents {
