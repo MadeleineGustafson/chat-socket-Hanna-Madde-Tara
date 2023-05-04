@@ -35,6 +35,7 @@ function ChattBox() {
 const input = {
   width: "25rem",
   height: "3rem",
+  margin: "0.3rem",
 };
 
 const chatBody = {
@@ -49,13 +50,14 @@ const flex = {
   gap: "0.5rem",
 };
 const chatBox = {
-  backgroundColor: "lightblue",
+  backgroundColor: "beige",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   width: "40%",
-  height: "40rem",
+  height: "42rem",
+  borderRadius: "1.3rem",
 };
 
 export default ChattBox;
