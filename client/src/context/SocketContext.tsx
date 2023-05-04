@@ -25,16 +25,30 @@ function SocketProvider({ children }: PropsWithChildren) {
   );
 
   useEffect(() => {
-    socket.on("connect", () => {
+    function connect() {
       console.log("connected to server");
-    });
-    socket.on("disconnect", () => {
-      console.log("disconnected from server");
-    });
+    }
 
-    socket.on("message", (message) => {
+    function disconnect() {
+      console.log("disconnected from server");
+    }
+
+    function message(message: string) {
       console.log(message);
-    });
+    }
+
+    socket.on("connect", connect);
+
+    socket.on("disconnect", disconnect);
+
+    socket.on("message", message);
+
+    // Städar upp
+    return () => {
+      socket.off("connect", connect);
+      socket.off("disconnect", disconnect);
+      socket.off("message", message);
+    };
   }, [socket]);
 
   return (
