@@ -1,5 +1,5 @@
 import { Box, Button, Input, Text } from "@chakra-ui/react";
-// import { Link as ReachLink } from "@reach/router";
+import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
   return (
@@ -19,11 +19,11 @@ export default function WelcomePage() {
         <Input placeholder="large size" size="lg" w={"11.5rem"} />
       </Box>
       <Box>
-        {/* <Link as={ReachLink} to="/home"> */}
-        <Button variant="solid" borderRadius="25px">
-          Börja chatta!
-        </Button>
-        {/* </Link> */}
+        <Link to={"/startpage"}>
+          <Button variant="solid" borderRadius="25px">
+            Börja chatta!
+          </Button>
+        </Link>
       </Box>
     </Box>
   );
