@@ -3,8 +3,13 @@ import { Box, Button, Input, Text } from "@chakra-ui/react";
 
 export default function WelcomePage() {
   return (
-    <Box>
-      <Box mt="8rem">
+    <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+      <Box
+        mt="8rem"
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+      >
         <Text fontSize={46} fontWeight="bold">
           Välkommen,
         </Text>
