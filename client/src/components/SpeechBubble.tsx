@@ -40,7 +40,6 @@ const smallbubble = {
   borderRadius: "1.5rem",
   height: "fit-content",
   padding: "1rem",
-
   backgroundColor: "white",
 };
 
