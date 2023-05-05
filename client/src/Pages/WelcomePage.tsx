@@ -7,11 +7,10 @@ const socket: Socket = io();
 
 export default function WelcomePage() {
   const [username, setUsername] = useState("");
-
   console.log(username);
 
-  const handleLogin = () => {
-    socket.emit("login", username);
+  const handleStartChatting = () => {
+    socket.emit("new-user", username);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +47,7 @@ export default function WelcomePage() {
             variant="solid"
             borderRadius="25px"
             id="submit"
-            onClick={handleLogin}
+            onClick={handleStartChatting}
           >
             Börja chatta!
           </Button>

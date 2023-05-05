@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+
 import type {
   ClientToServerEvents,
   InterServerEvents,
@@ -23,3 +24,13 @@ io.on("connection", (socket) => {
 
 io.listen(3000);
 console.log("listening on port 3000");
+
+// const io = require("socket.io")(server);
+
+// io.on("connection", (socket) => {
+//   console.log("a user connected");
+
+//   socket.on("new-user", (username) => {
+//     console.log(`New user connected with username ${username}`);
+//   });
+// });
