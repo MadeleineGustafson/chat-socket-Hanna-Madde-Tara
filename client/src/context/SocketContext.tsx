@@ -24,6 +24,10 @@ function SocketProvider({ children }: PropsWithChildren) {
     io()
   );
 
+  const joinRoom = (room: string) => {
+    socket.emit('join', {room: 'room'});
+  }
+
   useEffect(() => {
     function connect() {
       console.log("connected to server");
