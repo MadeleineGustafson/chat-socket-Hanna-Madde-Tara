@@ -13,16 +13,25 @@ import {
 
 interface ContextValues {
   socket: Socket;
+  name: string;
+  // joinRoom: (room: string, name: string) => void;
+  setUsername: (name: string) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
 
 export const useSocket = () => useContext(SocketContext);
 
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
+
 function SocketProvider({ children }: PropsWithChildren) {
-  const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
-    io()
-  );
+  const [name, setName] = useState("");
+
+  const setUsername = (name: string) => {
+    socket.emit("name", name, () => {
+      setName(name);
+    });
+  };
 
   const joinRoom = (room: string) => {
     socket.emit('join', {room: 'room'});
@@ -53,10 +62,10 @@ function SocketProvider({ children }: PropsWithChildren) {
       socket.off("disconnect", disconnect);
       socket.off("message", message);
     };
-  }, [socket]);
+  }, []);
 
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ socket, setUsername, name }}>
       {children}
     </SocketContext.Provider>
   );
