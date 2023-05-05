@@ -26,12 +26,14 @@ function SpeechBubble({ messages, submitted }: SpeechBubbleProps) {
 
 const namebox = {
   paddingLeft: "2rem",
+  fontFamily: "PT sans",
 };
 
 const bubble = {
   width: "15rem",
   borderRadius: "2rem",
   margin: "1rem",
+  fontFamily: "PT sans",
 };
 const smallbubble = {
   width: "15rem",

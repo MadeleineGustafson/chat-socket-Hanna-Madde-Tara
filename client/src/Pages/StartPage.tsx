@@ -16,5 +16,5 @@ export default function StartPage() {
 const flex = {
   display: "flex",
   justifyContent: "space-evenly",
-  alignItems: "center",
+  alignItems: "flex-start",
 };

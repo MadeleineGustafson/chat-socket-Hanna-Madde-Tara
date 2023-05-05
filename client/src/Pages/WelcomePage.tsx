@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
   return (
-    <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      background={" #ee4c5f"}
+    >
       <Box
         mt="8rem"
         display={"flex"}

@@ -1,14 +1,16 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-
 import Header from "./components/Header";
+import "./index.css";
 
 function App() {
   return (
     <>
       <ChakraProvider>
-        <Header />
-        <Outlet />
+        <Box background={" #ee4c5f"}>
+          <Header />
+          <Outlet />
+        </Box>
       </ChakraProvider>
     </>
   );
