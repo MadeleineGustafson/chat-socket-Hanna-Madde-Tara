@@ -1,13 +1,17 @@
 import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSocket } from "../context/SocketContext";
 
 export default function WelcomePage() {
   const [name, setName] = useState("");
+  const { setUsername } = useSocket();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(name);
+    setUsername(name);
+    navigate("/startpage");
   };
 
   return (
@@ -24,21 +28,21 @@ export default function WelcomePage() {
         <Text fontSize={20}>vänligen skriv ditt namn:</Text>
       </Box>
       <form onSubmit={handleSubmit}>
-        <Input
-          placeholder="Name"
-          size="lg"
-          w={"11.5rem"}
-          type="text"
-          value={name}
-          name="username"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Box>
-          <Link to="/startpage">
-            <Button variant="solid" borderRadius="25px" type="submit">
-              Börja chatta!
-            </Button>
-          </Link>
+        <Box m="2rem">
+          <Input
+            placeholder="Name"
+            size="lg"
+            w={"11.5rem"}
+            type="text"
+            value={name}
+            name="username"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <Button variant="solid" borderRadius="25px" type="submit">
+            Börja chatta!
+          </Button>
         </Box>
       </form>
     </Box>
