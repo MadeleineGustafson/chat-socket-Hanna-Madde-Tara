@@ -4,8 +4,8 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   message: (message: string) => void;
-  join: (join: string) => void;
-  leave: (leave: string) => void;
+  join: (room: string) => void;
+  leave: (room: string) => void;
 }
 
 export interface InterServerEvents {
