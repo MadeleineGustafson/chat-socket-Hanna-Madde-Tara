@@ -80,8 +80,9 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "36rem",
+  height: "33rem",
   border: "1px solid black",
+  overflowY: "auto",
 };
 
 const flex = {
