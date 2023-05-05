@@ -91,7 +91,7 @@ const flex = {
   gap: "0.5rem",
 };
 const chatBox = {
-  backgroundColor: "beige",
+  backgroundColor: "#FFF2C5",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",

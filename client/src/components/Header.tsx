@@ -16,6 +16,7 @@ const header = {
   display: "flex",
   justifyContent: "center",
   padding: "1rem",
+  color: "#FFE897",
 };
 
 export default Header;
