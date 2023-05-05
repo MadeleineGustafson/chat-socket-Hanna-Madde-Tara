@@ -4,7 +4,7 @@ function Header() {
     <>
       <Box sx={header}>
         <Heading as="h2" size="xl">
-          ChatterMelon
+          Babbly
         </Heading>
       </Box>
     </>

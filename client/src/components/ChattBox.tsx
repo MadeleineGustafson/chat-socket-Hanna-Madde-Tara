@@ -15,7 +15,6 @@ function ChattBox() {
   useEffect(() => {
     socket.on("message", handleNewMessage);
 
-    // cleanup function that removes the event listener when the component unmounts
     return () => {
       socket.off("message", handleNewMessage);
     };
