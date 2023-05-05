@@ -13,6 +13,7 @@ import {
 
 interface ContextValues {
   socket: Socket;
+  // joinRoom: (room: string, name: string) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
