@@ -1,6 +1,10 @@
 import { Box, IconButton, Input, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { TbSquareRoundedPlus } from "react-icons/tb";
 function CreateNewRoomBtn() {
+
+    const [room, setRoom] = useState('');
+
     return (
         <>
             <Box bg="pink">
@@ -8,13 +12,16 @@ function CreateNewRoomBtn() {
                 <form>
                     <Box display="flex" flexDirection="row" gap="2" flex="1">
                         <Input
+                        name="Room"
+                        placeholder="Room"
+                        type="text"
                         size="md"
                         w="10em"
-                        type="text"
-                        //value={name}
-                        name="roomname"
+                        value={room}
+                        onChange={(e) => setRoom(e.target.value)}
                         />            
                         <IconButton
+                        type='submit'
                         variant='outline'
                         colorScheme='yellow'
                         aria-label='plus'
