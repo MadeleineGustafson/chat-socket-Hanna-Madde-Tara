@@ -1,11 +1,14 @@
 import { Box, Heading } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <>
       <Box sx={header}>
-        <Heading as="h2" size="xl">
-          Babbly
-        </Heading>
+        <Link to={"/"}>
+          <Heading as="h2" size="xl">
+            Babbly
+          </Heading>
+        </Link>
       </Box>
     </>
   );

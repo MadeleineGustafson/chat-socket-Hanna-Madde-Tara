@@ -16,8 +16,14 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("message", (data) => {
-    io.emit("message", data);
+  // socket.on("message", (data) => {
+  //   io.emit("message", data);
+  // });
+
+  socket.on("name", (name, ack) => {
+    socket.data.name = name;
+    ack();
+    console.log(name);
   });
 });
 
