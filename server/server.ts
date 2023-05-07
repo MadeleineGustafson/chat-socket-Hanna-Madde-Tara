@@ -21,6 +21,12 @@ io.on("connection", (socket) => {
     ack();
     console.log(name);
   });
+
+  socket.on("join", (room, ack) => {
+    socket.data.room = room;
+    ack();
+    console.log(room);
+  });
 });
 
 io.listen(3000);

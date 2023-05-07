@@ -4,9 +4,9 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   message: (message: string) => void;
-  join: (join: string, ack: () => void) => void;
+  join: (room: string, ack: () => void) => void;
   name: (name: string, ack: () => void) => void;
-  leave: (leave: string) => void;
+  leave: (room: string) => void;
 }
 
 export interface InterServerEvents {
@@ -15,4 +15,5 @@ export interface InterServerEvents {
 
 export interface SocketData {
   name: string;
+  room: string;
 }

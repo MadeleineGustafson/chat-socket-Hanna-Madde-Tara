@@ -1,15 +1,18 @@
 import { Button, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { useSocket } from "../context/SocketContext";
 
 function JoinRoomForm() {
     const [room, setRoom] = useState('');
-
-    const joinRoom = (e: React.FormEvent<HTMLFormElement>) => {
+    const { joinRoom } = useSocket();
+    
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        joinRoom(room);
     }
     
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <Text>Välj rum</Text>
             <Input
             name="Room"
