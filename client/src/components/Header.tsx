@@ -6,7 +6,7 @@ function Header() {
       <Box sx={header}>
         <Link to={"/"}>
           <Heading as="h2" size="xl">
-            ChatterMelon
+            Babbly
           </Heading>
         </Link>
       </Box>
