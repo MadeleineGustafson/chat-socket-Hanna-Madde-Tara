@@ -1,4 +1,4 @@
-import { Box, FormControl, Icon, Input, Stack } from "@chakra-ui/react";
+import { Box, FormControl, Icon, Input, Stack, Text } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
 import { useSocket } from "../../src/context/SocketContext";
@@ -32,9 +32,12 @@ function ChattBox() {
     target: { value: SetStateAction<string> };
   }) => setInputValue(e.target.value);
 
+  const { room } = useSocket();
+
   return (
     <>
       <Box sx={chatBox}>
+        <Text> You are in room: {room}</Text>
         <Icon as={IoReturnDownBackOutline} boxSize={6} />
 
         <Box sx={chatBody}>

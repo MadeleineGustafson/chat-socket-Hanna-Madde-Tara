@@ -1,6 +1,7 @@
 import { Box, Heading, useMediaQuery } from "@chakra-ui/react";
 import { useSocket } from "../../src/context/SocketContext";
 import ChattBox from "../components/ChattBox";
+import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
