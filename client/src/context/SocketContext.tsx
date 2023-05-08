@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   createContext,
   PropsWithChildren,
@@ -34,7 +35,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   };
 
   const joinRoom = (room: string) => {
-    socket.emit('join', room);
+    socket.emit('join', room, () => {});
   }
 
   useEffect(() => {
