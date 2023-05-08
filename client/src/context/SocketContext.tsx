@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   createContext,
   PropsWithChildren,
@@ -14,7 +15,7 @@ import {
 interface ContextValues {
   socket: Socket;
   name: string;
-  // joinRoom: (room: string, name: string) => void;
+  joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
 }
 
@@ -30,8 +31,12 @@ function SocketProvider({ children }: PropsWithChildren) {
   const setUsername = (name: string) => {
     socket.emit("name", name, () => {
       setName(name);
-    });
+    }); 
   };
+
+  const joinRoom = (room: string) => {
+    socket.emit('join', room, () => {});
+  }
 
   useEffect(() => {
     function connect() {
@@ -61,7 +66,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, setUsername, name }}>
+    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom }}>
       {children}
     </SocketContext.Provider>
   );
