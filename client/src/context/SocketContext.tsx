@@ -29,6 +29,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 function SocketProvider({ children }: PropsWithChildren) {
   const [name, setName] = useState("");
   const [room, setRoom] = useState<string>();
+  const [createdRoom, setCreatedRoom] = useState(false);
 
   const setUsername = (name: string) => {
     socket.emit("name", name, () => {
@@ -39,6 +40,13 @@ function SocketProvider({ children }: PropsWithChildren) {
   const joinRoom = (room: string) => {
     socket.emit('join', room, () => {
       setRoom(room);
+    });
+  }
+
+  const createRoom = (room: string) => {
+    socket.emit('create', room, () => {
+      setRoom(room);
+      setCreatedRoom(true);
     });
   }
 

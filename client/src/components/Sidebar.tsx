@@ -8,8 +8,7 @@ function Sidebar() {
         <>
           <Flex height="100vh">
             <Box bg="pink" width="20em" >
-            <CreateNewRoomBtn />            
-                        
+              <CreateNewRoomBtn />                      
               <RoomButton />           
             </Box>
           </Flex>
