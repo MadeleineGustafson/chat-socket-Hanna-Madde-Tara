@@ -13,8 +13,11 @@ const io = new Server<
   SocketData
 >();
 
+const rooms: { name: string }[] = [];
+
+
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("a user connected");  
 
   socket.on("name", (name, ack) => {
     socket.data.name = name;
@@ -27,7 +30,24 @@ io.on("connection", (socket) => {
     ack();
     console.log(room);
   });
+
+  socket.on('create', (roomName, ack) => {
+    const newRoom = { name: roomName};
+    rooms.push(newRoom);
+    socket.join(newRoom.name);
+    io.to(socket.id).emit('roomCreated', newRoom.name);
+    ack();
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+    if (socket.data.room) {
+      socket.leave(socket.data.room);
+    }
+  });
 });
+
+  
 
 io.listen(3000);
 console.log("listening on port 3000");

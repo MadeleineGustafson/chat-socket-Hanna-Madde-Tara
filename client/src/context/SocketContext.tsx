@@ -18,6 +18,8 @@ interface ContextValues {
   room?: string;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
+  createRoom: (room: string) => void;
+  createdRoom: boolean;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -30,7 +32,8 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [name, setName] = useState("");
   const [room, setRoom] = useState<string>();
   const [createdRoom, setCreatedRoom] = useState(false);
-
+  const [rooms, setRooms] = useState<string[]>([]);     
+  
   const setUsername = (name: string) => {
     socket.emit("name", name, () => {
       setName(name);
@@ -44,9 +47,12 @@ function SocketProvider({ children }: PropsWithChildren) {
   }
 
   const createRoom = (room: string) => {
+    const newRooms = [...rooms, room];
+    setRooms(newRooms);
     socket.emit('create', room, () => {
       setRoom(room);
       setCreatedRoom(true);
+      console.log(`Created room ${room}`);
     });
   }
 
@@ -78,7 +84,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom, room }}>
+    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom, room, createRoom, createdRoom }}>
       {children}
     </SocketContext.Provider>
   );

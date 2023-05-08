@@ -2,20 +2,22 @@ import { Box, IconButton, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { TbSquareRoundedPlus } from "react-icons/tb";
 import { useSocket } from '../context/SocketContext';
-function CreateNewRoomBtn() {
+
+function CreateNewRoomBtn({ onCreateRoom }: { onCreateRoom: (room: string) => void }) {
     const { createRoom } = useSocket();
     const [room, setRoom] = useState('');
-    const { joinRoom } = useSocket();
-    
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+    const handleCreateRoom = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        joinRoom(room);
+        createRoom(room);
+        onCreateRoom(room);
+        setRoom('');
     }
 
     return (
         <>  
           <Box display="flex" flexDirection="row" gap="2" flex="1">                
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleCreateRoom}>
                     <Text as='h1' fontWeight="500" fontSize="18">Skapa ett nytt rum:</Text>
                         <Input
                         name="Room"
@@ -32,8 +34,10 @@ function CreateNewRoomBtn() {
                                 aria-label='plus'
                                 fontSize='40px'
                                 border="none"
-                                icon={<TbSquareRoundedPlus />}>
-                                </IconButton>
+                                icon={<TbSquareRoundedPlus />}
+                                type='submit'
+                                onClick={() => createRoom(room)}
+                                />
                                     {/*<Button
                                         size="md"
                                         border="1px" 

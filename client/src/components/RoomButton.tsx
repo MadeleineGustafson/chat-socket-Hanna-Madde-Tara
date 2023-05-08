@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useSocket } from '../context/SocketContext';
-function RoomButton() {
+function RoomButton( {rooms}: { rooms: string[] }) {
     const { joinRoom } = useSocket();
 
     const handleJoinRoom = (room: string ) => {
@@ -11,6 +11,7 @@ function RoomButton() {
             <Flex justifyContent="center" bg="pink.400" width="200px">
                 <Box>
                     <Text as="h1" mb="4" fontSize="25" fontWeight="700">Aktiva rum</Text>
+                    {rooms.map((room) => (
                        <Box as='button'
                         height='34px'
                         width="150px"
@@ -20,8 +21,11 @@ function RoomButton() {
                         fontSize='14px'
                         fontWeight='semibold'
                         bg="pink.100"
-                        onClick={() => handleJoinRoom('Rum 1')}
-                        >Rum 1</Box>
+                        onClick={() => handleJoinRoom(room)}
+                        >   
+                         {room}
+                         </Box>
+                          ))}
                 </Box>
             </Flex>
         </>
