@@ -10,6 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { RxHamburgerMenu } from "react-icons/rx";
+import Sidebar from "./Sidebar";
 
 const TopDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,10 +28,18 @@ const TopDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Drawer Header</DrawerHeader>
+          <DrawerHeader display={"flex"} justifyContent="center">
+            Babbly
+          </DrawerHeader>
           <DrawerBody>
-            <Box h="100vh" bg="gray.100" p={4}>
-              Drawer content goes here.
+            <Box
+              h="100vh"
+              bg="gray.100"
+              p={4}
+              display="flex"
+              justifyContent={"center"}
+            >
+              <Sidebar />
             </Box>
           </DrawerBody>
         </DrawerContent>
