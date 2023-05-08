@@ -11,7 +11,7 @@ export default function StartPage() {
   return (
     <>
       <Header showMenu={true} />
-      <Box sx={flex}>
+      <Box sx={flex} bg="#EE4C5F">
         {isLargerThanOrEqual820 && <Sidebar />}
         <Box sx={content}>
           {isSmallerThan819 && <Box mt={"10rem"}></Box>}
@@ -19,11 +19,11 @@ export default function StartPage() {
             <ChattBox />
           ) : (
             <>
-              <Heading as="h1" size="2xl">
+              <Heading color="#F9EFDD" as="h1" size="2xl">
                 Hej {name}!
               </Heading>
 
-              <Heading as="h3" size="l">
+              <Heading color="#F9EFDD" as="h3" size="l">
                 Välj ett rum i menyn och börja chatta!
               </Heading>
             </>
