@@ -1,4 +1,4 @@
-import { Button, Input, Text } from "@chakra-ui/react";
+import { Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSocket } from "../context/SocketContext";
 
@@ -21,7 +21,7 @@ function JoinRoomForm() {
             value={room}
             onChange={(e) => setRoom(e.target.value)}
             />
-            <Button type="submit">Gå med!</Button>
+            
         </form>
     );
 }
