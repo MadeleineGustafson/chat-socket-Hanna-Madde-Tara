@@ -71,14 +71,14 @@ function ChattBox() {
 export default ChattBox;
 
 const input = {
-  width: "25rem",
+  width: "15rem",
   height: "3rem",
   margin: "0.3rem",
 };
 
 const chatBody = {
-  width: "95%",
-  height: "36rem",
+  width: "20rem",
+  height: "20rem",
   border: "1px solid black",
 };
 
@@ -93,7 +93,7 @@ const chatBox = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  width: "40%",
-  minHeight: "42rem",
+  width: "20rem",
+  Height: "10rem",
   borderRadius: "1.3rem",
 };
