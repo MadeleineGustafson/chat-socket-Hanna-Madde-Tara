@@ -15,6 +15,7 @@ import {
 interface ContextValues {
   socket: Socket;
   name: string;
+  room?: string;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
 }
@@ -27,6 +28,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 function SocketProvider({ children }: PropsWithChildren) {
   const [name, setName] = useState("");
+  const [room, setRoom] = useState<string>();
 
   const setUsername = (name: string) => {
     socket.emit("name", name, () => {
@@ -35,7 +37,9 @@ function SocketProvider({ children }: PropsWithChildren) {
   };
 
   const joinRoom = (room: string) => {
-    socket.emit('join', room, () => {});
+    socket.emit('join', room, () => {
+      setRoom(room);
+    });
   }
 
   useEffect(() => {
@@ -66,7 +70,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom }}>
+    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom, room }}>
       {children}
     </SocketContext.Provider>
   );
