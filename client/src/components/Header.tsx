@@ -10,9 +10,9 @@ function Header({ showMenu }: HeaderProps) {
   const [isSmallerThan819] = useMediaQuery("(max-width: 819px)");
   return (
     <>
-      <Box sx={header}>
+      <Box sx={header} bg="#EE4C5F">
         <Link to={"/"}>
-          <Heading as="h2" size="xl">
+          <Heading color="#FFE897" as="h2" size="xl">
             Babbly
           </Heading>
         </Link>

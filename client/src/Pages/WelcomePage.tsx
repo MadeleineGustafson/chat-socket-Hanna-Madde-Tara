@@ -18,7 +18,12 @@ export default function WelcomePage() {
   return (
     <>
       <Header showMenu={false} />
-      <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+      <Box
+        bg="#EE4C5F"
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+      >
         <Box
           mt="8rem"
           display={"flex"}
