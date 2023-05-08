@@ -1,5 +1,6 @@
 import { Box, Heading, useMediaQuery } from "@chakra-ui/react";
 import { useSocket } from "../../src/context/SocketContext";
+import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
@@ -8,6 +9,7 @@ export default function StartPage() {
   const [isSmallerThan819] = useMediaQuery("(max-width: 819px)");
   return (
     <>
+      <Header showMenu={true} />
       <Box sx={flex}>
         {isLargerThanOrEqual820 && <Sidebar />}
         <Box sx={content}>
