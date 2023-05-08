@@ -1,14 +1,16 @@
 import { Box, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import HamburgerMenu from "./HamburgerMenu";
 function Header() {
   return (
     <>
       <Box sx={header}>
         <Link to={"/"}>
           <Heading as="h2" size="xl">
-            ChatterMelon
+            Babbly
           </Heading>
         </Link>
+        <HamburgerMenu></HamburgerMenu>
       </Box>
     </>
   );
