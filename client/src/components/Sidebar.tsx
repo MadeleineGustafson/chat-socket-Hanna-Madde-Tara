@@ -4,7 +4,7 @@ function Sidebar() {
   return (
     <>
       <Flex height="100vh">
-        <Box bg="pink" width="22rem" />
+        <Box bg="pink" width="25rem" />
         <Box flex="1" bg="white" />
       </Flex>
     </>
