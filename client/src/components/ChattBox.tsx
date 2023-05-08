@@ -1,4 +1,4 @@
-import { Box, FormControl, Icon, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, FormControl, Icon, Input, Stack } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
 import { useSocket } from "../../src/context/SocketContext";
@@ -6,9 +6,7 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessages] = useState<string[]>([]);
-
   const { socket } = useSocket();
-
   const [inputValue, setInputValue] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -32,12 +30,9 @@ function ChattBox() {
     target: { value: SetStateAction<string> };
   }) => setInputValue(e.target.value);
 
-  const { room } = useSocket();
-
   return (
     <>
       <Box sx={chatBox}>
-        <Text> You are in room: {room}</Text>
         <Icon as={IoReturnDownBackOutline} boxSize={6} />
 
         <Box sx={chatBody}>
@@ -71,14 +66,14 @@ function ChattBox() {
 export default ChattBox;
 
 const input = {
-  width: "15rem",
+  width: "25rem",
   height: "3rem",
   margin: "0.3rem",
 };
 
 const chatBody = {
-  width: "20rem",
-  height: "20rem",
+  width: "95%",
+  height: "36rem",
   border: "1px solid black",
 };
 
@@ -93,7 +88,7 @@ const chatBox = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  width: "20rem",
-  Height: "10rem",
+  width: "40%",
+  minHeight: "42rem",
   borderRadius: "1.3rem",
 };

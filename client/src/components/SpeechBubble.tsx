@@ -12,7 +12,7 @@ function SpeechBubble({ messages, submitted }: SpeechBubbleProps) {
         <>
           {messages.map((message: string, index: number) => (
             <Box key={index} sx={bubble}>
-              <Text sx={namebox}>Namn</Text>
+              <Text sx={namebox}> Namn</Text>
               <Box sx={smallbubble}>
                 <Text>{message}</Text>
               </Box>
