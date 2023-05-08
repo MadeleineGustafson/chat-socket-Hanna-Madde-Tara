@@ -1,5 +1,11 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { useSocket } from '../context/SocketContext';
 function RoomButton() {
+    const { joinRoom } = useSocket();
+
+    const handleJoinRoom = (room: string ) => {
+        joinRoom(room);
+    }
     return (
         <>
             <Flex justifyContent="center" bg="pink.400" width="200px">
@@ -14,6 +20,7 @@ function RoomButton() {
                         fontSize='14px'
                         fontWeight='semibold'
                         bg="pink.100"
+                        onClick={() => handleJoinRoom('Rum 1')}
                         >Rum 1</Box>
                 </Box>
             </Flex>
