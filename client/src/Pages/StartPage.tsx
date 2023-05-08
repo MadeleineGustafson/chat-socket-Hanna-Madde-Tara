@@ -1,15 +1,16 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, useMediaQuery } from "@chakra-ui/react";
 import { useSocket } from "../../src/context/SocketContext";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
   const { name } = useSocket();
+  const [isLargerThanOrEqual820] = useMediaQuery("(min-width: 820px)");
   return (
     <>
       <Box sx={flex}>
-        <Sidebar />
+        {isLargerThanOrEqual820 && <Sidebar />}
         <Box sx={content}>
-          <Heading as="h1" size="2xl">
+          <Heading as="h1" size="2xl" mt={"6rem"}>
             Hej {name}!
           </Heading>
           <Heading as="h3" size="l">

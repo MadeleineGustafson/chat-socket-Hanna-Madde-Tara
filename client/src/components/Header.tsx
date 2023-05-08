@@ -1,7 +1,8 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, useMediaQuery } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 function Header() {
+  const [isSmallerThan820] = useMediaQuery("(max-width: 820px)");
   return (
     <>
       <Box sx={header}>
@@ -10,7 +11,11 @@ function Header() {
             Babbly
           </Heading>
         </Link>
-        <HamburgerMenu></HamburgerMenu>
+        {isSmallerThan820 && (
+          <Box position="absolute" top="0" right="0">
+            <HamburgerMenu></HamburgerMenu>
+          </Box>
+        )}
       </Box>
     </>
   );
