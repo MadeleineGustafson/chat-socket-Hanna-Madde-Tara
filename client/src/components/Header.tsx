@@ -1,5 +1,6 @@
 import { Box, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import HamburgerMenu from "./HamburgerMenu";
 function Header() {
   return (
     <>
@@ -9,6 +10,7 @@ function Header() {
             Babbly
           </Heading>
         </Link>
+        <HamburgerMenu></HamburgerMenu>
       </Box>
     </>
   );
