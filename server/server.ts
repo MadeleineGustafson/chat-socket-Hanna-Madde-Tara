@@ -13,12 +13,15 @@ const io = new Server<
   SocketData
 >();
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
+const rooms: { name: string }[] = [];
 
-  socket.on("name", (name, ack) => {
+
+io.on("connection", (socket) => {
+  console.log("a user connected");  
+  // Emit all rooms
+
+  socket.on("name", (name) => {
     socket.data.name = name;
-    ack();
     console.log(name);
   });
 
@@ -28,12 +31,19 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join", (room, ack) => {
-    socket.data.name = room;
     socket.join(room);
-    ack();
+    // EMIT ALL ROOMS
     console.log(room);
+    ack();
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+    // EMIT ALL ROOMS
   });
 });
+
+  
 
 io.listen(3000);
 console.log("listening on port 3000");
