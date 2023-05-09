@@ -2,12 +2,12 @@ import { Box, Text } from "@chakra-ui/react";
 import { useSocket } from "../context/SocketContext";
 
 function SpeechBubble() {
-  const { name, messages } = useSocket();
+  const { messages } = useSocket();
   return (
     <Box sx={bubble}>
       {messages.map((message, index) => (
         <Box key={index}>
-          <Text sx={namebox}>{name}</Text>
+          <Text sx={namebox}>{message.name}</Text>
           <Box sx={smallbubble}>
             <Text>{message.message}</Text>
           </Box>
