@@ -47,8 +47,8 @@ function CreateNewRoomBtn() {
               bg="#FF9587"
               border={"none"}
               borderRadius="25px"
-              onChange={(e) => setRoom(e.target.value)}
               mr="0.5rem"
+              onChange={(e) => setRoom(e.target.value)}
             />
             <IconButton
               variant="outline"
@@ -61,12 +61,6 @@ function CreateNewRoomBtn() {
               _hover={{ bg: "#ee4c5f", opacity: "70%" }}
             />
           </Box>
-          {/*<Button
-                                        size="md"
-                                        border="1px" 
-                                        borderColor="yellow"
-                                        borderRadius="10"> + </Button>
-                                    */}
         </form>
       </Box>
     </>

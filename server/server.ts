@@ -13,25 +13,36 @@ const io = new Server<
   SocketData
 >();
 
+const rooms: { name: string }[] = [];
+
 io.on("connection", (socket) => {
   console.log("a user connected");
+  // Emit all rooms
 
-  socket.on("name", (name, ack) => {
+  socket.on("name", (name) => {
     socket.data.name = name;
-    ack();
-    console.log(name);
+    console.log(`User ${name} logged in`);
   });
 
   socket.on("message", (room, message) => {
     io.to(room).emit("message", socket.data.name!, message);
-    console.log(room, socket.data.name, message);
+    // const name = socket.data.name;
+    console.log(
+      `User ${socket.data.name} wrote message: ${message} in room: ${room}`
+    );
   });
 
   socket.on("join", (room, ack) => {
-    socket.data.name = room;
     socket.join(room);
+    // EMIT ALL ROOMS
+    const name = socket.data.name;
+    console.log(`User ${name} joined room ${room}`);
     ack();
-    console.log(room);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+    // EMIT ALL ROOMS
   });
 });
 

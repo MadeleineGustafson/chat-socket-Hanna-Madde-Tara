@@ -12,6 +12,7 @@ import {
   Message,
   ServerToClientEvents,
 } from "../../../server/communications";
+import { useSessionStorageState } from "../hooks/useSessionStorgeState";
 
 interface ContextValues {
   socket: Socket;
@@ -22,6 +23,7 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
+  rooms: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -31,14 +33,14 @@ export const useSocket = () => useContext(SocketContext);
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 function SocketProvider({ children }: PropsWithChildren) {
-  const [name, setName] = useState("");
+  const [name, setName] = useSessionStorageState("", "name");
   const [room, setRoom] = useState<string>();
+
+  const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
   const setUsername = (name: string) => {
-    socket.emit("name", name, () => {
-      setName(name);
-    });
+    setName(name);
   };
 
   const joinRoom = (room: string) => {
@@ -50,9 +52,19 @@ function SocketProvider({ children }: PropsWithChildren) {
   const sendMessage = (message: string) => {
     if (room) {
       socket.emit("message", room, message);
-      setMessages([...messages, { name, message }]);
+      // setMessages([...messages, { name, message }]);
     }
   };
+
+  useEffect(() => {
+    setMessages([]);
+  }, [room]);
+
+  useEffect(() => {
+    if (name) {
+      socket.emit("name", name);
+    }
+  }, [name]);
 
   useEffect(() => {
     function connect() {
@@ -92,6 +104,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         sendMessage,
         messages,
         setMessages,
+        rooms,
       }}
     >
       {children}
