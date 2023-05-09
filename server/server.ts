@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
     socket.join(newRoom.name);
     io.to(socket.id).emit('roomCreated', newRoom.name);
     ack();
+    console.log(newRoom);
   });
 
   socket.on("disconnect", () => {
