@@ -3,14 +3,13 @@ import { useState } from 'react';
 import { TbSquareRoundedPlus } from "react-icons/tb";
 import { useSocket } from '../context/SocketContext';
 
-function CreateNewRoomBtn({ onCreateRoom }: { onCreateRoom: (room: string) => void }) {
-    const { createRoom } = useSocket();
+function CreateNewRoomBtn() {
+    const { joinRoom } = useSocket();
     const [room, setRoom] = useState('');
 
     const handleCreateRoom = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createRoom(room);
-        onCreateRoom(room);
+        joinRoom(room);
         setRoom('');
     }
 
@@ -36,7 +35,6 @@ function CreateNewRoomBtn({ onCreateRoom }: { onCreateRoom: (room: string) => vo
                                 border="none"
                                 icon={<TbSquareRoundedPlus />}
                                 type='submit'
-                                onClick={() => createRoom(room)}
                                 />
                                     {/*<Button
                                         size="md"

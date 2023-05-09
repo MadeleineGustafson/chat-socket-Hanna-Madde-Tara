@@ -18,10 +18,10 @@ const rooms: { name: string }[] = [];
 
 io.on("connection", (socket) => {
   console.log("a user connected");  
+  // Emit all rooms
 
-  socket.on("name", (name, ack) => {
+  socket.on("name", (name) => {
     socket.data.name = name;
-    ack();
     console.log(name);
   });
 
@@ -31,26 +31,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join", (room, ack) => {
-    socket.data.name = room;
     socket.join(room);
-    ack();
+    // EMIT ALL ROOMS
     console.log(room);
-  });
-
-  socket.on('create', (roomName, ack) => {
-    const newRoom = { name: roomName};
-    rooms.push(newRoom);
-    socket.join(newRoom.name);
-    io.to(socket.id).emit('roomCreated', newRoom.name);
     ack();
-    console.log(newRoom);
   });
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
-    if (socket.data.room) {
-      socket.leave(socket.data.room);
-    }
+    // EMIT ALL ROOMS
   });
 });
 

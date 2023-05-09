@@ -1,7 +1,8 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useSocket } from '../context/SocketContext';
-function RoomButton( {rooms}: { rooms: string[] }) {
-    const { joinRoom } = useSocket();
+function RoomButton() {
+    
+    const { joinRoom, rooms } = useSocket();
 
     const handleJoinRoom = (room: string ) => {
         joinRoom(room);
