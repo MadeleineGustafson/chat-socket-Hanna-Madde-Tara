@@ -97,13 +97,14 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom, room, createRoom, createdRoom }}>
-    <SocketContext.Provider
+    <SocketContext.Provider    
       value={{
         socket,
         setUsername,
         name,
         joinRoom,
+        createdRoom,
+        createRoom,
         room,
         sendMessage,
         messages,
