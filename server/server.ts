@@ -14,24 +14,30 @@ const io = new Server<
 >();
 
 io.on("connection", (socket) => {
-  console.log("a user connected");  
+  console.log("a user connected");
   // Emit all rooms
   io.emit('rooms', getRooms());
 
   socket.on("name", (name) => {
     socket.data.name = name;
-    console.log(name);
+    console.log(`User ${name} logged in`);
   });
 
   socket.on("message", (room, message) => {
     io.to(room).emit("message", socket.data.name!, message);
-    console.log(room, socket.data.name, message);
+    // const name = socket.data.name;
+    console.log(
+      `User ${socket.data.name} wrote message: ${message} in room: ${room}`
+    );
   });
 
   socket.on("join", (room, ack) => {
     socket.join(room);
     io.emit('rooms', getRooms());
     console.log(room);
+    // EMIT ALL ROOMS
+    const name = socket.data.name;
+    console.log(`User ${name} joined room ${room}`);
     ack();
   });
 

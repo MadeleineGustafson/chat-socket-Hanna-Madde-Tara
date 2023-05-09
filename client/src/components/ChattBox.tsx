@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   Heading,
   Icon,
@@ -17,7 +18,7 @@ function ChattBox() {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
+    console.log("chattbox");
     setMessage("");
     sendMessage(messages);
   };
@@ -44,12 +45,9 @@ function ChattBox() {
                 onChange={(e) => setMessage(e.target.value)}
               />
             </FormControl>
-            <Icon
-              as={IoSend}
-              boxSize={6}
-              type="submit"
-              onClick={handleSubmit}
-            />
+            <Button as={IoSend} boxSize={6} type="submit">
+              {/* <Icon as={IoSend} boxSize={6} /> */}
+            </Button>
           </Stack>
         </form>
       </Box>
@@ -67,8 +65,9 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "33rem",
+  height: "30rem",
   border: "1px solid black",
+  overflowY: "auto",
 };
 
 const flex = {
