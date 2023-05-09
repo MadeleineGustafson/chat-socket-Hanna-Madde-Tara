@@ -3,9 +3,10 @@ import { useSocket } from '../context/SocketContext';
 function RoomButton() {
     
     const { joinRoom, rooms } = useSocket();
-
-    const handleJoinRoom = (room: string ) => {
-        joinRoom(room);
+    console.log(rooms);
+    const handleJoinRoom = (rooms: string ) => {
+        joinRoom(rooms);
+       
     }
     return (
         <>
@@ -13,7 +14,7 @@ function RoomButton() {
                 <Box>
                     <Text as="h1" mb="4" fontSize="25" fontWeight="700">Aktiva rum</Text>
                     {rooms.map((room) => (
-                       <Box as='button'
+                       <Box key = {room} as='button'
                         height='34px'
                         width="150px"
                         border='none'
