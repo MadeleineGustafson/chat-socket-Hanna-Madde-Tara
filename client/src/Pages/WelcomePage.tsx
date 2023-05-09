@@ -1,6 +1,7 @@
 import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import { useSocket } from "../context/SocketContext";
 
 export default function WelcomePage() {
@@ -15,36 +16,44 @@ export default function WelcomePage() {
   };
 
   return (
-    <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+    <>
+      <Header showMenu={false} />
       <Box
-        mt="8rem"
+        bg="#EE4C5F"
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
       >
-        <Text fontSize={46} fontWeight="bold">
-          Välkommen,
-        </Text>
-        <Text fontSize={20}>vänligen skriv ditt namn:</Text>
+        <Box
+          mt="8rem"
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+        >
+          <Text fontSize={46} fontWeight="bold">
+            Välkommen,
+          </Text>
+          <Text fontSize={20}>vänligen skriv ditt namn:</Text>
+        </Box>
+        <form onSubmit={handleSubmit}>
+          <Box m="2rem">
+            <Input
+              placeholder="Name"
+              size="lg"
+              w={"11.5rem"}
+              type="text"
+              value={name}
+              name="username"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <Button variant="solid" borderRadius="25px" type="submit">
+              Börja chatta!
+            </Button>
+          </Box>
+        </form>
       </Box>
-      <form onSubmit={handleSubmit}>
-        <Box m="2rem">
-          <Input
-            placeholder="Name"
-            size="lg"
-            w={"11.5rem"}
-            type="text"
-            value={name}
-            name="username"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Box>
-        <Box display="flex" justifyContent="center">
-          <Button variant="solid" borderRadius="25px" type="submit">
-            Börja chatta!
-          </Button>
-        </Box>
-      </form>
-    </Box>
+    </>
   );
 }

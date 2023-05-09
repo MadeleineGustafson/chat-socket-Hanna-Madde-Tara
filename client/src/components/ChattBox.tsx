@@ -1,44 +1,35 @@
-import { Box, FormControl, Icon, Input, Stack } from "@chakra-ui/react";
-import { SetStateAction, useEffect, useState } from "react";
+import {
+  Box,
+  FormControl,
+  Heading,
+  Icon,
+  Input,
+  Stack,
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
-import { useSocket } from "../../src/context/SocketContext";
+import { useSocket } from "../context/SocketContext";
 import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
-  const [messages, setMessages] = useState<string[]>([]);
-
-  const { socket } = useSocket();
-
-  const [inputValue, setInputValue] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
-  }, [socket]);
+  const [messages, setMessage] = useState("");
+  const { room, sendMessage } = useSocket();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (inputValue.trim() !== "") {
-      setMessages([...messages, inputValue]); // Add input value to messages
-      socket.emit("message", inputValue);
-      setInputValue("");
-      setSubmitted(true);
-    }
-  };
 
-  const handleInputChange = (e: {
-    target: { value: SetStateAction<string> };
-  }) => setInputValue(e.target.value);
+    setMessage("");
+    sendMessage(messages);
+  };
 
   return (
     <>
+      <Heading>{room}</Heading>
       <Box sx={chatBox}>
         <Icon as={IoReturnDownBackOutline} boxSize={6} />
 
         <Box sx={chatBody}>
-          <SpeechBubble messages={messages} submitted={submitted} />
+          <SpeechBubble />
         </Box>
 
         <form onSubmit={handleSubmit}>
@@ -46,10 +37,11 @@ function ChattBox() {
             <FormControl id="input">
               <Input
                 sx={input}
+                name="message"
+                placeholder="Write a message..."
                 type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="Skriv ett meddelande..."
+                value={messages}
+                onChange={(e) => setMessage(e.target.value)}
               />
             </FormControl>
             <Icon
@@ -75,7 +67,7 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "36rem",
+  height: "33rem",
   border: "1px solid black",
 };
 
@@ -85,12 +77,12 @@ const flex = {
   gap: "0.5rem",
 };
 const chatBox = {
-  backgroundColor: "beige",
+  backgroundColor: "#F9EFDD",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  width: "40%",
-  minHeight: "42rem",
+  width: "33rem",
+  Height: "30rem",
   borderRadius: "1.3rem",
 };
