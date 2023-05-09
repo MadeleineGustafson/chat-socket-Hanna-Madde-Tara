@@ -19,11 +19,11 @@ interface ContextValues {
   name: string;
   room?: string;
   messages: Message[];
+  rooms: string[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
-  rooms: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -67,6 +67,19 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, [name]);
 
   useEffect(() => {
+    function updateRooms(rooms: string[]) {
+      setRooms(rooms);
+    }
+  
+    socket.on("rooms", updateRooms);
+  
+    return () => {
+      socket.off("rooms", updateRooms);
+    };
+  }, []);
+  
+
+  useEffect(() => {
     function connect() {
       console.log("connected to server");
     }
@@ -78,6 +91,8 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
       setMessages((messages) => [...messages, { name, message }]);
     }
+
+    
 
     socket.on("connect", connect);
 
