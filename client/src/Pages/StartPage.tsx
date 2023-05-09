@@ -1,6 +1,7 @@
 import { Box, Heading, useMediaQuery } from "@chakra-ui/react";
 import { useSocket } from "../../src/context/SocketContext";
 import ChattBox from "../components/ChattBox";
+import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
@@ -9,22 +10,23 @@ export default function StartPage() {
   const { name, room } = useSocket();
   return (
     <>
-      <Box sx={flex}>
+      <Header showMenu={true} />
+      <Box sx={flex} bg="#EE4C5F">
         {isLargerThanOrEqual820 && <Sidebar />}
         <Box sx={content}>
           {isSmallerThan819 && <Box mt={"10rem"}></Box>}
-          {room? (
-            <ChattBox />  
+          {room ? (
+            <ChattBox />
           ) : (
             <>
-          <Heading as="h1" size="2xl">
-            Hej {name}!
-          </Heading>
+              <Heading color="#F9EFDD" as="h1" size="2xl">
+                Hej {name}!
+              </Heading>
 
-          <Heading as="h3" size="l">
-            Välj ett rum i menyn och börja chatta!
-          </Heading>
-          </>
+              <Heading color="#F9EFDD" as="h3" size="l">
+                Välj ett rum i menyn och börja chatta!
+              </Heading>
+            </>
           )}
         </Box>
       </Box>

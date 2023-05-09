@@ -25,8 +25,14 @@ io.on("connection", (socket) => {
     console.log(name);
   });
 
+  socket.on("message", (room, message) => {
+    io.to(room).emit("message", socket.data.name!, message);
+    console.log(room, socket.data.name, message);
+  });
+
   socket.on("join", (room, ack) => {
-    socket.data.room = room;
+    socket.data.name = room;
+    socket.join(room);
     ack();
     console.log(room);
   });
