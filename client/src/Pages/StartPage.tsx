@@ -9,22 +9,22 @@ export default function StartPage() {
   const { name, room } = useSocket();
   return (
     <>
-      <Box sx={flex}>
+      <Box sx={flex} bg="#ee4c5f">
         {isLargerThanOrEqual820 && <Sidebar />}
         <Box sx={content}>
           {isSmallerThan819 && <Box mt={"10rem"}></Box>}
-          {room? (
-            <ChattBox />  
+          {room ? (
+            <ChattBox />
           ) : (
             <>
-          <Heading as="h1" size="2xl">
-            Hej {name}!
-          </Heading>
+              <Heading as="h1" size="2xl" color={"#e0e5cb"}>
+                Hej {name}!
+              </Heading>
 
-          <Heading as="h3" size="l">
-            Välj ett rum i menyn och börja chatta!
-          </Heading>
-          </>
+              <Heading as="h3" size="l" color={"#e0e5cb"}>
+                Välj ett rum i menyn och börja chatta!
+              </Heading>
+            </>
           )}
         </Box>
       </Box>
