@@ -9,6 +9,7 @@ import {
 import { io, Socket } from "socket.io-client";
 import {
   ClientToServerEvents,
+  Message,
   ServerToClientEvents,
 } from "../../../server/communications";
 
@@ -16,6 +17,9 @@ interface ContextValues {
   socket: Socket;
   name: string;
   room?: string;
+  messages: Message[];
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
 }
@@ -29,18 +33,26 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 function SocketProvider({ children }: PropsWithChildren) {
   const [name, setName] = useState("");
   const [room, setRoom] = useState<string>();
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const setUsername = (name: string) => {
     socket.emit("name", name, () => {
       setName(name);
-    }); 
+    });
   };
 
   const joinRoom = (room: string) => {
-    socket.emit('join', room, () => {
+    socket.emit("join", room, () => {
       setRoom(room);
     });
-  }
+  };
+
+  const sendMessage = (message: string) => {
+    if (room) {
+      socket.emit("message", room, message);
+      setMessages([...messages, { name, message }]);
+    }
+  };
 
   useEffect(() => {
     function connect() {
@@ -51,8 +63,8 @@ function SocketProvider({ children }: PropsWithChildren) {
       console.log("disconnected from server");
     }
 
-    function message(message: string) {
-      console.log(message);
+    function message(name: string, message: string) {
+      setMessages((messages) => [...messages, { name, message }]);
     }
 
     socket.on("connect", connect);
@@ -70,7 +82,18 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, setUsername, name, joinRoom, room }}>
+    <SocketContext.Provider
+      value={{
+        socket,
+        setUsername,
+        name,
+        joinRoom,
+        room,
+        sendMessage,
+        messages,
+        setMessages,
+      }}
+    >
       {children}
     </SocketContext.Provider>
   );
