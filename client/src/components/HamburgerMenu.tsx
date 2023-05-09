@@ -23,10 +23,13 @@ const TopDrawer = () => {
         aria-label="Open menu"
         variant="ghost"
         size="lg"
+        color={"#e0e5cb"}
+        bg="#ee4c5f"
+        _hover={{ bg: "#ee4c5f", opacity: "70%" }}
       />
       <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent color={"#e0e5cb"}>
           <DrawerCloseButton />
           <DrawerHeader display={"flex"} justifyContent="center">
             Babbly
