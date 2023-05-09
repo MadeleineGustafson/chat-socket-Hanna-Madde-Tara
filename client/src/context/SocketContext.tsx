@@ -24,7 +24,6 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
-  rooms: string[]
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
