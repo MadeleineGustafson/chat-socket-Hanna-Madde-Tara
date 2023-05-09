@@ -29,12 +29,12 @@ const TopDrawer = () => {
       />
       <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
+        <DrawerContent bg="#ee4c5f">
+          <DrawerCloseButton color={"#e0e5cb"} />
           <DrawerHeader
             display={"flex"}
             justifyContent="center"
-            color={"#e0e5cb"}
+            color={"#FFE897"}
             bg="#ee4c5f"
           >
             Babbly

@@ -1,48 +1,73 @@
-import { Box, IconButton, Text } from "@chakra-ui/react";
+import { Box, IconButton, Input, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import { TbSquareRoundedPlus } from "react-icons/tb";
+import { useSocket } from "../context/SocketContext";
+
 function CreateNewRoomBtn() {
+  const { joinRoom } = useSocket();
+  const [room, setRoom] = useState("");
+
+  const handleCreateRoom = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    joinRoom(room);
+    setRoom("");
+  };
+
   return (
     <>
-      <Box display="flex" flexDirection="row" gap="2" flex="1" bg="#ee4c5f">
-        <Text as="h1" color={"#e0e5cb"}>
-          Skapa ett nytt rum
-        </Text>
-        <IconButton
-          variant="outline"
-          color="#FFEDAD"
-          aria-label="plus"
-          fontSize="40px"
-          border="none"
-          icon={<TbSquareRoundedPlus />}
-        ></IconButton>
-        {/*<Button
-<<<<<<< HEAD
-      <Box display="flex" flexDirection="row" gap="2" flex="1" bg="#ee4c5f">
-        <Text as="h1" color={"#e0e5cb"}>
-          Skapa ett nytt rum
-        </Text>
-        <IconButton
-          variant="outline"
-          color={"#e0e5cb"}
-          _hover={{ bg: "#ee4c5f", opacity: "70%" }}
-=======
-      <Box display="flex" flexDirection="row" gap="2" flex="1">
-        <Text as="h1">Skapa ett nytt rum</Text>
-        <IconButton
-          variant="outline"
-          color="#FFEDAD"
->>>>>>> main
-          aria-label="plus"
-          fontSize="40px"
-          border="none"
-          icon={<TbSquareRoundedPlus />}
-        ></IconButton>
-        {/*<Button
-                            size="md"
-                            border="1px" 
-                            borderColor="yellow"
-                            borderRadius="10"> + </Button>
-                        */}
+      <Box
+        display="flex"
+        flexDirection="row"
+        gap="2"
+        flex="1"
+        justifyContent={"center"}
+      >
+        <form onSubmit={handleCreateRoom}>
+          <Text
+            as="h1"
+            fontWeight="500"
+            fontSize="18"
+            color="#FFE897"
+            display="flex"
+            justifyContent={"center"}
+            m="1rem"
+            mt={"2.5rem"}
+          >
+            Skapa ett nytt rum:
+          </Text>
+          <Box display={"flex"}>
+            <Input
+              name="Room"
+              placeholder="Rum"
+              _placeholder={{ color: "#e0e5cb" }}
+              type="text"
+              size="md"
+              width="11rem"
+              value={room}
+              bg="#FF9587"
+              border={"none"}
+              borderRadius="25px"
+              onChange={(e) => setRoom(e.target.value)}
+              mr="0.5rem"
+            />
+            <IconButton
+              variant="outline"
+              color="#FFE897"
+              aria-label="plus"
+              fontSize="40px"
+              border="none"
+              icon={<TbSquareRoundedPlus />}
+              type="submit"
+              _hover={{ bg: "#ee4c5f", opacity: "70%" }}
+            />
+          </Box>
+          {/*<Button
+                                        size="md"
+                                        border="1px" 
+                                        borderColor="yellow"
+                                        borderRadius="10"> + </Button>
+                                    */}
+        </form>
       </Box>
     </>
   );

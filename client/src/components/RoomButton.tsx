@@ -8,9 +8,17 @@ function RoomButton() {
   };
   return (
     <>
-      <Flex justifyContent="center" bg="#ee4c5f" width="200px">
-        <Box>
-          <Text as="h1" mb="4" fontSize="25" fontWeight="700" color={"#e0e5cb"}>
+      <Flex display={"flex"} justifyContent="center" bg="#ee4c5f">
+        <Box mt={"2rem"}>
+          <Text
+            as="h1"
+            mb="4"
+            fontSize="25"
+            fontWeight="700"
+            color={"#e0e5cb"}
+            display="flex"
+            justifyContent={"center"}
+          >
             Aktiva rum
           </Text>
           <Box
@@ -22,7 +30,7 @@ function RoomButton() {
             borderRadius="8px"
             fontSize="14px"
             fontWeight="semibold"
-            bg="#e0e5cb"
+            bg={"#FFE897"}
             onClick={() => handleJoinRoom("Rum 1")}
           >
             Rum 1
