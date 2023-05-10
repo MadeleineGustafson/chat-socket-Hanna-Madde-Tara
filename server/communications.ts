@@ -2,7 +2,7 @@ export interface ServerToClientEvents {
   message: (name: string, message: string) => void; // Lägga till användarnamn i framtiden?
   //roomCreated: (room: string) => void;
   rooms: (rooms: string[]) => void;
-  typing: (typing: string) => void;
+  isTyping: (typing: string) => void;
 }
 
 export interface ClientToServerEvents {
@@ -10,7 +10,7 @@ export interface ClientToServerEvents {
   join: (room: string, ack: () => void) => void;
   name: (name: string, ack?: () => void) => void;
   leave: (room: string) => void;
-  typing: (room: string) => void;
+  isTyping: (room: string) => void;
 
   //test: () => void
 }

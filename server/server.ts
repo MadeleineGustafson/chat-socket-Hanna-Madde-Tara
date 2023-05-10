@@ -30,9 +30,10 @@ io.on("connection", (socket) => {
     );
   });
 
-  socket.on("typing", (room) => {
+  socket.on("isTyping", (room) => {
     if (socket.data.name) {
-      socket.to(room).emit("typing", socket.data.name + " is typing");
+      socket.broadcast.to(room).emit("isTyping", socket.data.name);
+      console.log(`User ${socket.data.name} is typing a message`);
     }
   });
 
