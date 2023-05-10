@@ -40,6 +40,7 @@ function RoomsList() {
               fontWeight="semibold"
               bg="#FFF2C5"
               display="flex"
+              color="#9D3440"
               justifyContent="center"
               alignItems="center"
               onClick={() => handleJoinRoom(room)}

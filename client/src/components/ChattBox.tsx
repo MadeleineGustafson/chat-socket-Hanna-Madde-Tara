@@ -30,7 +30,9 @@ function ChattBox() {
 
   return (
     <>
-      <Heading color={"#FBC189"}>{room}</Heading>
+      <Heading marginTop="2rem" as="h2" size="xl" color={"#FBC189"}>
+        {room}
+      </Heading>
       <Box sx={chatBox}>
         <Box width="30rem" display="flex" justifyContent="flex-start">
           <IconButton
