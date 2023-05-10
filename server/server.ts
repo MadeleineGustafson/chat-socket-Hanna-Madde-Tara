@@ -3,56 +3,64 @@ import type {
   ClientToServerEvents,
   InterServerEvents,
   ServerToClientEvents,
-  SocketData,
 } from "./communications";
 
 const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
-  InterServerEvents,
-  SocketData
+  InterServerEvents
 >();
 
+// CONNECT
 io.on("connection", (socket) => {
   console.log("a user connected");
+
   // Emit all rooms
   io.emit("rooms", getRooms());
 
-  socket.on("name", (name) => {
+  // NAME
+  socket.on("name", (name: string) => {
     socket.data.name = name;
     console.log(`User ${name} logged in`);
   });
 
-  socket.on("message", (room, message) => {
-    io.to(room).emit("message", socket.data.name!, message);
+  // MESSAGE
+  socket.on("message", (room: string, message: string) => {
+    if (!socket.data.name) {
+      console.error("Missing user name");
+      return;
+    }
+    io.to(room).emit("message", socket.data.name, message);
     console.log(
       `User ${socket.data.name} wrote message: ${message} in room: ${room}`
     );
   });
 
-  socket.on("isTyping", (room) => {
-    if (socket.data.name) {
-      socket.broadcast.to(room).emit("isTyping", socket.data.name);
-      console.log(`User ${socket.data.name} is typing a message`);
+  // IS STYPING
+  socket.on("typing", (isTyping: boolean, room: string) => {
+    socket.broadcast.to(room).emit("typing", isTyping, socket.data.name);
+    console.log(`User ${socket.data.name} is typing a message`);
+  });
+
+  // JOIN ROOM
+  socket.on("join", (room: string, ack?: () => void) => {
+    socket.join(room);
+    io.emit("rooms", getRooms());
+    console.log(`User ${socket.data.name} joined room ${room}`);
+    if (ack) {
+      ack();
     }
   });
 
-  socket.on("join", (room, ack) => {
-    socket.join(room);
-    io.emit("rooms", getRooms());
-    console.log(room);
-    const name = socket.data.name;
-    console.log(`User ${name} joined room ${room}`);
-    ack();
-  });
-
+  // DISCONNECT
   socket.on("disconnect", () => {
     console.log("user disconnected");
     io.emit("rooms", getRooms());
   });
 });
 
-function getRooms() {
+// GET ALL ROOMS
+function getRooms(): string[] {
   const { rooms } = io.sockets.adapter;
   const roomsFound: string[] = [];
   console.log(rooms);
@@ -61,7 +69,6 @@ function getRooms() {
       roomsFound.push(name);
     }
   }
-
   return roomsFound;
 }
 

@@ -24,8 +24,6 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
   setUsername: (name: string) => void;
-  isTyping: boolean;
-  setTyping: (typing: boolean) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -41,8 +39,6 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const [isTyping, setIsTyping] = useState<boolean>(false);
-
   const setUsername = (name: string) => {
     setName(name);
   };
@@ -56,14 +52,6 @@ function SocketProvider({ children }: PropsWithChildren) {
   const sendMessage = (message: string) => {
     if (room) {
       socket.emit("message", room, message);
-      // setMessages([...messages, { name, message }]);
-    }
-  };
-
-  const setTyping = (typing: boolean) => {
-    setIsTyping(typing);
-    if (room) {
-      socket.emit("isTyping", room);
     }
   };
 
@@ -102,24 +90,16 @@ function SocketProvider({ children }: PropsWithChildren) {
       setMessages((messages) => [...messages, { name, message }]);
     }
 
-    function handleTyping(typing: string) {
-      setIsTyping(typing === "true");
-    }
-
     socket.on("connect", connect);
 
     socket.on("disconnect", disconnect);
 
     socket.on("message", message);
 
-    socket.on("isTyping", handleTyping);
-
-    // Städar upp
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
-      socket.off("isTyping", handleTyping);
     };
   }, []);
 
@@ -127,16 +107,14 @@ function SocketProvider({ children }: PropsWithChildren) {
     <SocketContext.Provider
       value={{
         socket,
-        setUsername,
         name,
-        joinRoom,
         room,
-        sendMessage,
+        rooms,
         messages,
         setMessages,
-        rooms,
-        isTyping,
-        setTyping,
+        sendMessage,
+        joinRoom,
+        setUsername,
       }}
     >
       {children}

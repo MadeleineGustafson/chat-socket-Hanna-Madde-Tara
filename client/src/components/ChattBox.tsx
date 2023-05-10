@@ -6,7 +6,6 @@ import {
   Icon,
   Input,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
@@ -15,21 +14,14 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-  const { room, sendMessage, setTyping } = useSocket();
+
+  const { room, sendMessage } = useSocket();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("chattbox");
     setMessage("");
     sendMessage(messages);
-    setIsTyping(false); // Reset typing state after sending message
-  };
-
-  const handleTyping = (e: any) => {
-    setMessage(e.target.value);
-    setIsTyping(e.target.value !== "");
-    setTyping(e.target.value !== "");
   };
 
   return (
@@ -41,7 +33,7 @@ function ChattBox() {
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
-
+        {/* {isTyping && <Text>Någon skriver ett meddelande...</Text>} */}
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
             <FormControl id="input">
@@ -51,7 +43,7 @@ function ChattBox() {
                 placeholder="Write a message..."
                 type="text"
                 value={messages}
-                onChange={handleTyping}
+                onChange={(e) => setMessage(e.target.value)}
               />
             </FormControl>
             <Button as={IoSend} boxSize={6} type="submit">
@@ -59,8 +51,6 @@ function ChattBox() {
             </Button>
           </Stack>
         </form>
-
-        {isTyping && <Text>{`${name} - Someone is typing...`}</Text>}
       </Box>
     </>
   );
