@@ -14,7 +14,7 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage, leaveRoom, rooms, setRooms } = useSocket();
+  const { room, sendMessage, leaveRoom, setRooms } = useSocket();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -59,9 +59,7 @@ function ChattBox() {
                 onChange={(e) => setMessage(e.target.value)}
               />
             </FormControl>
-            <Button as={IoSend} boxSize={6} type="submit">
-              {/* <Icon as={IoSend} boxSize={6} /> */}
-            </Button>
+            <Button as={IoSend} boxSize={6} type="submit"></Button>
           </Stack>
         </form>
       </Box>
