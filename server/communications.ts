@@ -2,6 +2,7 @@ export interface ServerToClientEvents {
   message: (name: string, message: string) => void; // Lägga till användarnamn i framtiden?
   //roomCreated: (room: string) => void;
   rooms: (rooms: string[]) => void;
+  typing: (typing: string) => void;
 }
 
 export interface ClientToServerEvents {

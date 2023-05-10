@@ -30,6 +30,12 @@ io.on("connection", (socket) => {
     );
   });
 
+  socket.on("typing", (room) => {
+    if (socket.data.name) {
+      socket.to(room).emit("typing", socket.data.name + " is typing");
+    }
+  });
+
   socket.on("join", (room, ack) => {
     socket.join(room);
     io.emit("rooms", getRooms());
