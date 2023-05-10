@@ -23,7 +23,9 @@ interface ContextValues {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
+  leaveRoom: () => void;
   setUsername: (name: string) => void;
+  setRooms: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -47,6 +49,13 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.emit("join", room, () => {
       setRoom(room);
     });
+  };
+
+  const leaveRoom = () => {
+    if (room !== undefined) {
+      socket.emit("leave", room);
+    }
+    setRoom("");
   };
 
   const sendMessage = (message: string) => {
@@ -108,13 +117,16 @@ function SocketProvider({ children }: PropsWithChildren) {
       value={{
         socket,
         name,
+        joinRoom,
+        leaveRoom,
         room,
         rooms,
         messages,
         setMessages,
-        sendMessage,
-        joinRoom,
+
+        setRooms,
         setUsername,
+        sendMessage,
       }}
     >
       {children}
