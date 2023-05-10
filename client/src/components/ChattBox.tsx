@@ -5,7 +5,7 @@ import {
   Heading,
   IconButton,
   Input,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
@@ -14,7 +14,7 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage, leaveRoom, rooms, setRooms } = useSocket();
+  const { room, sendMessage, leaveRoom, setRooms } = useSocket();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -25,25 +25,24 @@ function ChattBox() {
 
   const handleLeaveRoom = () => {
     leaveRoom();
-    setRooms(prevRooms => prevRooms.filter(prevRoom => prevRoom !== room));
+    setRooms((prevRooms) => prevRooms.filter((prevRoom) => prevRoom !== room));
   };
 
   return (
     <>
       <Heading>{room}</Heading>
       <Box sx={chatBox}>
-
-      <IconButton
-              variant="outline"
-              color="black"
-              aria-label="plus"
-              fontSize="40px"
-              boxSize="12"
-              border="none"
-              icon={<IoReturnDownBackOutline />}
-              onClick={handleLeaveRoom}
-              _hover={{ bg: "#ee4c5f", opacity: "70%" }}
-            />        
+        <IconButton
+          variant="outline"
+          color="black"
+          aria-label="plus"
+          fontSize="40px"
+          boxSize="12"
+          border="none"
+          icon={<IoReturnDownBackOutline />}
+          onClick={handleLeaveRoom}
+          _hover={{ bg: "#ee4c5f", opacity: "70%" }}
+        />
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
