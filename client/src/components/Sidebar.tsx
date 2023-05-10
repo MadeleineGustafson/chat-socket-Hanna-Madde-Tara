@@ -5,7 +5,7 @@ import RoomsList from "./RoomsList";
 function Sidebar() {
   return (
     <Flex minHeight="30rem">
-      <Box bg="pink" width="20em">
+      <Box bg="#ee4c5f" width="20em">
         <CreateNewRoomBtn />
         <RoomsList />
       </Box>
