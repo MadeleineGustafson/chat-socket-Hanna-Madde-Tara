@@ -41,6 +41,11 @@ io.on("connection", (socket) => {
     ack();
   });
 
+  socket.on("leave", (room) => {
+    socket.leave(room);
+    io.to(room).emit("rooms", getRooms());
+  });
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
     io.emit('rooms', getRooms());

@@ -14,7 +14,7 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage } = useSocket();
+  const { room, sendMessage, leaveRoom, rooms, setRooms } = useSocket();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -23,12 +23,17 @@ function ChattBox() {
     sendMessage(messages);
   };
 
+  const handleLeaveRoom = () => {
+    leaveRoom();
+    setRooms(prevRooms => prevRooms.filter(prevRoom => prevRoom !== room));
+  };
+
   return (
     <>
       <Heading>{room}</Heading>
       <Box sx={chatBox}>
         <Icon as={IoReturnDownBackOutline} boxSize={6} />
-
+        <Button onClick={handleLeaveRoom}>Leave room</Button>
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
