@@ -8,9 +8,17 @@ function RoomsList() {
   };
   return (
     <>
-      <Flex justifyContent="center" bg="pink.400" width="200px">
-        <Box>
-          <Text as="h1" mb="4" fontSize="25" fontWeight="700">
+      <Flex justifyContent="center" bg="#EE4C5F" mt={"2rem"}>
+        <Box display={"flex"} justifyContent="center" flexDirection={"column"}>
+          <Text
+            as="h1"
+            mb="4"
+            fontSize="25"
+            fontWeight="700"
+            display={"flex"}
+            justifyContent="center"
+            color={"#FFE897"}
+          >
             Aktiva rum
           </Text>
           {rooms.map((room) => (
@@ -19,11 +27,11 @@ function RoomsList() {
               height="34px"
               width="150px"
               border="none"
-              px="8px"
+              m={"0.5rem"}
               borderRadius="8px"
               fontSize="14px"
               fontWeight="semibold"
-              bg="pink.100"
+              bg="#FFF2C5"
               onClick={() => handleJoinRoom(room)}
             >
               {room}

@@ -25,11 +25,11 @@ function ChattBox() {
 
   return (
     <>
-      <Heading>{room}</Heading>
+      <Heading color="#FBC189">{room}</Heading>
       <Box sx={chatBox}>
         <Icon as={IoReturnDownBackOutline} boxSize={6} />
 
-        <Box sx={chatBody}>
+        <Box sx={chatBody} color="#EE4C5F">
           <SpeechBubble />
         </Box>
 
