@@ -89,7 +89,7 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "30rem",
+  height: "35rem",
   border: "1px solid black",
   overflowY: "auto",
 };
