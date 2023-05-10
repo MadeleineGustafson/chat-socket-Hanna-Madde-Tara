@@ -30,15 +30,18 @@ export default function WelcomePage() {
           flexDirection={"column"}
           alignItems={"center"}
         >
-          <Text fontSize={46} fontWeight="bold">
+          <Text fontSize={46} fontWeight="bold" color="#e0e5cb">
             Välkommen,
           </Text>
-          <Text fontSize={20}>vänligen skriv ditt namn:</Text>
+          <Text fontSize={20} color="#e0e5cb">
+            vänligen skriv ditt namn:
+          </Text>
         </Box>
         <form onSubmit={handleSubmit}>
           <Box m="2rem">
             <Input
               placeholder="Name"
+              _placeholder={{ color: "#e0e5cb" }}
               size="lg"
               w={"11.5rem"}
               type="text"
@@ -48,8 +51,14 @@ export default function WelcomePage() {
             />
           </Box>
           <Box display="flex" justifyContent="center">
-            <Button variant="solid" borderRadius="25px" type="submit">
-              Börja chatta!
+            <Button
+              variant="solid"
+              borderRadius="25px"
+              type="submit"
+              bg={"#FF9587"}
+              _hover={{ bg: "#ee4c5f", opacity: "70%" }}
+            >
+              <Text color="#e0e5cb">Börja chatta!</Text>
             </Button>
           </Box>
         </form>

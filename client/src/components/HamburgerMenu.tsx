@@ -16,25 +16,33 @@ const TopDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
+    <Box>
       <IconButton
         icon={<RxHamburgerMenu />}
         onClick={onOpen}
         aria-label="Open menu"
         variant="ghost"
         size="lg"
+        color={"#e0e5cb"}
+        bg="#ee4c5f"
+        _hover={{ bg: "#ee4c5f", opacity: "70%" }}
       />
       <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader display={"flex"} justifyContent="center">
+        <DrawerContent bg="#ee4c5f">
+          <DrawerCloseButton color={"#e0e5cb"} />
+          <DrawerHeader
+            display={"flex"}
+            justifyContent="center"
+            color={"#FFE897"}
+            bg="#ee4c5f"
+          >
             Babbly
           </DrawerHeader>
           <DrawerBody>
             <Box
               h="100vh"
-              bg="gray.100"
+              bg="#ee4c5f"
               p={4}
               display="flex"
               justifyContent={"center"}
@@ -44,7 +52,7 @@ const TopDrawer = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-    </>
+    </Box>
   );
 };
 
