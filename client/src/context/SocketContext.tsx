@@ -70,14 +70,13 @@ function SocketProvider({ children }: PropsWithChildren) {
     function updateRooms(rooms: string[]) {
       setRooms(rooms);
     }
-  
+
     socket.on("rooms", updateRooms);
-  
+
     return () => {
       socket.off("rooms", updateRooms);
     };
   }, []);
-  
 
   useEffect(() => {
     function connect() {
@@ -91,8 +90,6 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
       setMessages((messages) => [...messages, { name, message }]);
     }
-
-    
 
     socket.on("connect", connect);
 

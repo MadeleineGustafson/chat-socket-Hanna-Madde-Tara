@@ -16,7 +16,7 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
   // Emit all rooms
-  io.emit('rooms', getRooms());
+  io.emit("rooms", getRooms());
 
   socket.on("name", (name) => {
     socket.data.name = name;
@@ -25,7 +25,6 @@ io.on("connection", (socket) => {
 
   socket.on("message", (room, message) => {
     io.to(room).emit("message", socket.data.name!, message);
-    // const name = socket.data.name;
     console.log(
       `User ${socket.data.name} wrote message: ${message} in room: ${room}`
     );
@@ -33,9 +32,8 @@ io.on("connection", (socket) => {
 
   socket.on("join", (room, ack) => {
     socket.join(room);
-    io.emit('rooms', getRooms());
+    io.emit("rooms", getRooms());
     console.log(room);
-    // EMIT ALL ROOMS
     const name = socket.data.name;
     console.log(`User ${name} joined room ${room}`);
     ack();
@@ -43,7 +41,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
-    io.emit('rooms', getRooms());
+    io.emit("rooms", getRooms());
   });
 });
 
