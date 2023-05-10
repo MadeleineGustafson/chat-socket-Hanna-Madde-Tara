@@ -15,6 +15,9 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
+  // Store the user's current room (initially null)
+  socket.data.room = null;
+
   // Emit all rooms
   io.emit("rooms", getRooms());
 
@@ -42,23 +45,51 @@ io.on("connection", (socket) => {
     console.log(`User ${socket.data.name} is typing a message`);
   });
 
-  // JOIN ROOM
-  socket.on("join", (room: string, ack?: () => void) => {
-    socket.join(room);
+  // JOIN A ROOM
+  socket.on("join", (newRoom: string, ack?: () => void) => {
+    // Current room
+    const currentRoom = socket.data.room;
+
+    // If the user is in a room then leave it
+    if (currentRoom) {
+      socket.leave(currentRoom);
+    }
+    // Join the new room
+    socket.join(newRoom);
+
+    // Update the users current room
+    socket.data.room = newRoom;
+
+    // Emit updated list of rooms to all clients
     io.emit("rooms", getRooms());
-    console.log(`User ${socket.data.name} joined room ${room}`);
+
+    console.log(`User ${socket.data.name} joined room ${newRoom}`);
+
     if (ack) {
       ack();
     }
   });
 
-  socket.on("leave", (room) => {
+  // LEAVE A ROOM
+  socket.on("leave", (room: string) => {
     socket.leave(room);
+
+    // Update the user's current room to null
+    socket.data.room = null;
+
     io.to(room).emit("rooms", getRooms());
   });
 
+  // DISCONNECT
   socket.on("disconnect", () => {
     console.log("user disconnected");
+
+    // If the user is in a room, leave it before disconnecting
+    const currentRoom = socket.data.room;
+    if (currentRoom) {
+      socket.leave(currentRoom);
+    }
+
     io.emit("rooms", getRooms());
   });
 });
