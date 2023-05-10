@@ -4,18 +4,14 @@ import { TbSquareRoundedPlus } from "react-icons/tb";
 import { useSocket } from "../context/SocketContext";
 
 function CreateNewRoomBtn() {
-
-
-
-    const { joinRoom } = useSocket();
-    const [room, setRoom] = useState('');
-    console.log(room);
-    const handleCreateRoom = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        joinRoom(room);
-        setRoom('');
-    }
-
+  const { joinRoom } = useSocket();
+  const [room, setRoom] = useState("");
+  console.log(room);
+  const handleCreateRoom = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    joinRoom(room);
+    setRoom("");
+  };
 
   return (
     <>
