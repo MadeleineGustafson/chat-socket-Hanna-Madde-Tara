@@ -30,7 +30,7 @@ function ChattBox() {
 
   return (
     <>
-      <Heading>{room}</Heading>
+      <Heading color={"#FBC189"}>{room}</Heading>
       <Box sx={chatBox}>
         <IconButton
           variant="outline"
@@ -54,12 +54,22 @@ function ChattBox() {
                 sx={input}
                 name="message"
                 placeholder="Write a message..."
+                _placeholder={{ color: "#9D3440" }}
                 type="text"
                 value={messages}
+                bg="#FF9587"
+                opacity="40%"
                 onChange={(e) => setMessage(e.target.value)}
               />
             </FormControl>
-            <Button as={IoSend} boxSize={6} type="submit">
+            <Button
+              as={IoSend}
+              boxSize={6}
+              type="submit"
+              color={"#9D3440"}
+              bg="#F9EFDD"
+              _hover={{ bg: "#FF9587", opacity: "40%" }}
+            >
               {/* <Icon as={IoSend} boxSize={6} /> */}
             </Button>
           </Stack>
