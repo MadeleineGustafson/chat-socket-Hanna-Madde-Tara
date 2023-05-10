@@ -46,7 +46,7 @@ io.on("connection", (socket) => {
   });
 
   // JOIN A ROOM
-  socket.on("join", (newRoom: string, ack?: () => void) => {
+  socket.on("join", (newRoom: string, ack: () => void) => {
     // Current room
     const currentRoom = socket.data.room;
 
@@ -65,9 +65,7 @@ io.on("connection", (socket) => {
 
     console.log(`User ${socket.data.name} joined room ${newRoom}`);
 
-    if (ack) {
-      ack();
-    }
+    ack();
   });
 
   // LEAVE A ROOM

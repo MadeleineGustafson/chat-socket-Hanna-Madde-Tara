@@ -1,4 +1,5 @@
 import { Box, Heading, useMediaQuery } from "@chakra-ui/react";
+import { RiChatSmile2Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 
@@ -12,8 +13,14 @@ function Header({ showMenu }: HeaderProps) {
     <>
       <Box sx={header} bg="#EE4C5F">
         <Link to={"/"}>
-          <Heading color="#FFE897" as="h2" size="xl">
-            Babbly
+          <Heading
+            color="#FFE897"
+            as="h2"
+            size="2xl"
+            display="flex"
+            alignItems="center"
+          >
+            Babbly <RiChatSmile2Line />
           </Heading>
         </Link>
         {isSmallerThan819 && showMenu && (
