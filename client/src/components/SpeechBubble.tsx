@@ -20,6 +20,7 @@ function SpeechBubble() {
 const namebox = {
   paddingLeft: "2rem",
   color: "#9D3440",
+  fontWeight: "bold",
 };
 
 const bubble = {
@@ -31,7 +32,8 @@ const smallbubble = {
   width: "15rem",
   borderRadius: "1.5rem",
   height: "fit-content",
-  padding: "1rem",
+  padding: "0.8rem",
+
   backgroundColor: "#FF9587",
   color: "#9D3440",
 };

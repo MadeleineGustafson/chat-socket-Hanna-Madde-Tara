@@ -30,7 +30,7 @@ function ChattBox() {
 
   return (
     <>
-      <Heading marginTop="2rem" as="h2" size="xl" color={"#FBC189"}>
+      <Heading marginTop="2rem" as="h2" size="xl" color="#e0e5cb">
         {room}
       </Heading>
       <Box sx={chatBox}>
