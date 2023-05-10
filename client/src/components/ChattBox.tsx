@@ -32,17 +32,20 @@ function ChattBox() {
     <>
       <Heading color={"#FBC189"}>{room}</Heading>
       <Box sx={chatBox}>
-        <IconButton
-          variant="outline"
-          color="black"
-          aria-label="plus"
-          fontSize="40px"
-          boxSize="12"
-          border="none"
-          icon={<IoReturnDownBackOutline />}
-          onClick={handleLeaveRoom}
-          _hover={{ bg: "#ee4c5f", opacity: "70%" }}
-        />
+        <Box width="30rem" display="flex" justifyContent="flex-start">
+          <IconButton
+            variant="outline"
+            color="#9D3440"
+            aria-label="plus"
+            fontSize="40px"
+            boxSize="12"
+            border="none"
+            icon={<IoReturnDownBackOutline />}
+            onClick={handleLeaveRoom}
+            _hover={{ color: "#EE4C5F", opacity: "70%" }}
+          />
+        </Box>
+
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
@@ -63,15 +66,14 @@ function ChattBox() {
               />
             </FormControl>
             <Button
-              as={IoSend}
-              boxSize={6}
+              boxSize={10}
               type="submit"
               onClick={handleSubmit}
               color={"#9D3440"}
               bg="#F9EFDD"
               _hover={{ bg: "#FF9587", opacity: "40%" }}
             >
-              {/* <Icon as={IoSend} boxSize={6} /> */}
+              <IoSend />
             </Button>
           </Stack>
         </form>
@@ -90,7 +92,7 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "35rem",
+  height: "30rem",
   border: "1px solid black",
   overflowY: "auto",
 };
