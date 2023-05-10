@@ -7,7 +7,7 @@ function SpeechBubble() {
     <Box sx={bubble}>
       {messages.map((message, index) => (
         <Box key={index}>
-          <Text sx={namebox}>{message.name}</Text>
+          <Text sx={namebox}>{message.name}:</Text>
           <Box sx={smallbubble}>
             <Text>{message.message}</Text>
           </Box>
@@ -19,6 +19,7 @@ function SpeechBubble() {
 
 const namebox = {
   paddingLeft: "2rem",
+  color: "#9D3440",
 };
 
 const bubble = {
@@ -31,8 +32,8 @@ const smallbubble = {
   borderRadius: "1.5rem",
   height: "fit-content",
   padding: "1rem",
-
-  backgroundColor: "white",
+  backgroundColor: "#FF9587",
+  color: "#9D3440",
 };
 
 export default SpeechBubble;

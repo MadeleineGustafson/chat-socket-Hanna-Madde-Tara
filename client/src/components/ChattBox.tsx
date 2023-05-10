@@ -5,7 +5,7 @@ import {
   Heading,
   IconButton,
   Input,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
@@ -14,7 +14,7 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage, leaveRoom, rooms, setRooms } = useSocket();
+  const { room, sendMessage, leaveRoom, setRooms } = useSocket();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -25,25 +25,24 @@ function ChattBox() {
 
   const handleLeaveRoom = () => {
     leaveRoom();
-    setRooms(prevRooms => prevRooms.filter(prevRoom => prevRoom !== room));
+    setRooms((prevRooms) => prevRooms.filter((prevRoom) => prevRoom !== room));
   };
 
   return (
     <>
-      <Heading>{room}</Heading>
+      <Heading color={"#FBC189"}>{room}</Heading>
       <Box sx={chatBox}>
-
-      <IconButton
-              variant="outline"
-              color="black"
-              aria-label="plus"
-              fontSize="40px"
-              boxSize="12"
-              border="none"
-              icon={<IoReturnDownBackOutline />}
-              onClick={handleLeaveRoom}
-              _hover={{ bg: "#ee4c5f", opacity: "70%" }}
-            />        
+        <IconButton
+          variant="outline"
+          color="black"
+          aria-label="plus"
+          fontSize="40px"
+          boxSize="12"
+          border="none"
+          icon={<IoReturnDownBackOutline />}
+          onClick={handleLeaveRoom}
+          _hover={{ bg: "#ee4c5f", opacity: "70%" }}
+        />
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
@@ -55,12 +54,22 @@ function ChattBox() {
                 sx={input}
                 name="message"
                 placeholder="Write a message..."
+                _placeholder={{ color: "#9D3440" }}
                 type="text"
                 value={messages}
+                bg="#FF9587"
+                opacity="40%"
                 onChange={(e) => setMessage(e.target.value)}
               />
             </FormControl>
-            <Button as={IoSend} boxSize={6} type="submit">
+            <Button
+              as={IoSend}
+              boxSize={6}
+              type="submit"
+              color={"#9D3440"}
+              bg="#F9EFDD"
+              _hover={{ bg: "#FF9587", opacity: "40%" }}
+            >
               {/* <Icon as={IoSend} boxSize={6} /> */}
             </Button>
           </Stack>
@@ -80,7 +89,7 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "30rem",
+  height: "35rem",
   border: "1px solid black",
   overflowY: "auto",
 };
