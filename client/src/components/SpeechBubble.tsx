@@ -1,15 +1,8 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useEffect, useRef } from "react";
 import { useSocket } from "../context/SocketContext";
 
 function SpeechBubble() {
   const { messages } = useSocket();
-  const lastMessageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-  
   return (
     <Box sx={bubble}>
       {messages.map((message, index) => (
@@ -20,7 +13,6 @@ function SpeechBubble() {
           </Box>
         </Box>
       ))}
-       <div ref={lastMessageRef}></div>
     </Box>
   );
 }
