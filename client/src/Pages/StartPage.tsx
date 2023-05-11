@@ -5,8 +5,8 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
-  const [isLargerThanOrEqual820] = useMediaQuery("(min-width: 850px)");
-  const [isSmallerThan819] = useMediaQuery("(max-width: 850px)");
+  const [isLargerThanOrEqual820] = useMediaQuery("(min-width: 820px)");
+  const [isSmallerThan819] = useMediaQuery("(max-width: 819px)");
   const { name, room } = useSocket();
   return (
     <>
@@ -20,11 +20,16 @@ export default function StartPage() {
                 <ChattBox />
               ) : (
                 <>
-                  <Heading color="#F9EFDD" as="h1" size="2xl">
+                  <Heading
+                    fontFamily="Rubik"
+                    color="#F9EFDD"
+                    as="h1"
+                    size="2xl"
+                  >
                     Hej {name}!
                   </Heading>
 
-                  <Heading color="#F9EFDD" as="h3" size="l">
+                  <Heading fontFamily="Rubik" color="#F9EFDD" as="h3" size="l">
                     Välj ett rum i menyn och börja chatta!
                   </Heading>
                 </>
@@ -37,11 +42,17 @@ export default function StartPage() {
                 <ChattBox />
               ) : (
                 <>
-                  <Heading color="#F9EFDD" as="h1" size="2xl" mt={"10rem"}>
+                  <Heading
+                    fontFamily="Rubik"
+                    color="#F9EFDD"
+                    as="h1"
+                    size="2xl"
+                    mt={"10rem"}
+                  >
                     Hej {name}!
                   </Heading>
 
-                  <Heading color="#F9EFDD" as="h3" size="l">
+                  <Heading fontFamily="Rubik" color="#F9EFDD" as="h3" size="l">
                     Välj ett rum i menyn och börja chatta!
                   </Heading>
                 </>

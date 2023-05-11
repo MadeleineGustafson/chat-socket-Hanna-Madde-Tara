@@ -30,10 +30,15 @@ export default function WelcomePage() {
           flexDirection={"column"}
           alignItems={"center"}
         >
-          <Text fontSize={46} fontWeight="bold" color="#e0e5cb">
+          <Text
+            fontFamily="Rubik"
+            fontSize={46}
+            fontWeight="bold"
+            color="#e0e5cb"
+          >
             Välkommen,
           </Text>
-          <Text fontSize={20} color="#e0e5cb">
+          <Text fontFamily="Rubik" fontSize={20} color="#e0e5cb">
             vänligen skriv ditt namn:
           </Text>
         </Box>

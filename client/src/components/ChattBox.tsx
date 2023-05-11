@@ -67,7 +67,13 @@ function ChattBox() {
 
   return (
     <>
-      <Heading marginTop="2rem" as="h2" size="xl" color="#e0e5cb">
+      <Heading
+        fontFamily="Rubik"
+        marginTop="2rem"
+        as="h2"
+        fontSize="1.5rem"
+        color="#e0e5cb"
+      >
         {room}
       </Heading>
       <Box sx={chatBox}>
@@ -92,11 +98,10 @@ function ChattBox() {
         {usersTyping.length > 0 &&
           (usersTyping.length <= 3 ? (
             <Text>
-              {usersTyping.join(" & ")} {usersTyping.length > 1 ? "are" : "is"}{" "}
-              typing...
+              {usersTyping.join(" & ")} {usersTyping.length > 1} skriver...
             </Text>
           ) : (
-            <Text>Several people are typing...</Text>
+            <Text>Flera användare skriver...</Text>
           ))}
 
         <form onSubmit={handleSubmit}>

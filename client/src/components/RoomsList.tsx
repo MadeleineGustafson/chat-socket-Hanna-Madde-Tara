@@ -25,6 +25,7 @@ function RoomsList() {
             color={"#FFF2C5"}
             display="flex"
             justifyContent="center"
+            fontFamily="Rubik"
           >
             Aktiva rum
           </Text>

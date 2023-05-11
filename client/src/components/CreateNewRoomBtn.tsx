@@ -31,6 +31,7 @@ function CreateNewRoomBtn() {
             display="flex"
             justifyContent={"center"}
             m="1rem"
+            fontFamily="Rubik"
             mt={"2.5rem"}
           >
             Skapa ett nytt rum:
