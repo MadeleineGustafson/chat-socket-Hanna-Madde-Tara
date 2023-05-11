@@ -15,7 +15,7 @@ import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [, setIsTyping] = useState(false);
 
   const { room, sendMessage, leaveRoom, setRooms, sendIsTyping, usersTyping } =
     useSocket();
@@ -89,7 +89,15 @@ function ChattBox() {
           <SpeechBubble />
         </Box>
 
-        {isTyping && <Text> {usersTyping} is typing...</Text>}
+        {usersTyping.length > 0 &&
+          (usersTyping.length <= 3 ? (
+            <Text>
+              {usersTyping.join(" & ")} {usersTyping.length > 1 ? "are" : "is"}{" "}
+              typing...
+            </Text>
+          ) : (
+            <Text>Several people are typing...</Text>
+          ))}
 
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
