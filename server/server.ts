@@ -17,8 +17,6 @@ io.on("connection", (socket) => {
 
   // Store the user's current room (initially null)
   socket.data.room = null;
-
-  // Emit all rooms
   io.emit("rooms", getRooms());
 
   // NAME
@@ -40,8 +38,10 @@ io.on("connection", (socket) => {
   });
 
   // IS STYPING
-  socket.on("typing", (isTyping: boolean, room: string) => {
-    socket.broadcast.to(room).emit("typing", isTyping, socket.data.name);
+  socket.on("typing", (isTyping: boolean) => {
+    socket.broadcast
+      .to(socket.data.room)
+      .emit("typing", isTyping, socket.data.name);
     console.log(`User ${socket.data.name} is typing a message`);
   });
 
@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
     // Update the user's current room to null
     socket.data.room = null;
 
-    io.to(room).emit("rooms", getRooms());
+    io.emit("rooms", getRooms());
   });
 
   // DISCONNECT

@@ -7,25 +7,50 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
 import { useSocket } from "../context/SocketContext";
 import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage, leaveRoom, setRooms } = useSocket();
+  const { room, sendMessage, leaveRoom, setRooms, sendIsTyping } = useSocket();
+  const timerRef = useRef<number>();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("chattbox");
     setMessage("");
     sendMessage(messages);
+
+    // Ta bort timer och skicka till server.
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      sendIsTyping(false);
+      timerRef.current = undefined;
+    }
   };
 
   const handleLeaveRoom = () => {
     leaveRoom();
     setRooms((prevRooms) => prevRooms.filter((prevRoom) => prevRoom !== room));
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+    // Började användaren skriva? Svar: Vid första bokstaven nedtryckt
+    // Slutade användaren skriva? Svar: När användaren trycker på enter eller när användaren inte har tyckt på något på 5 sekunder
+
+    if (!timerRef.current) {
+      sendIsTyping(true);
+    }
+
+    // Debounce
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      sendIsTyping(false);
+      timerRef.current = undefined;
+    }, 5000);
   };
 
   return (
@@ -64,7 +89,7 @@ function ChattBox() {
                 value={messages}
                 bg="#FF9587"
                 opacity="40%"
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={handleInputChange}
               />
             </FormControl>
             <Button
