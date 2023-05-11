@@ -71,7 +71,7 @@ function ChattBox() {
         {room}
       </Heading>
       <Box sx={chatBox}>
-        <Box width="30rem" display="flex" justifyContent="flex-start">
+        <Box sx={back}>
           <IconButton
             variant="outline"
             color="#9D3440"
@@ -115,7 +115,6 @@ function ChattBox() {
               />
             </FormControl>
             <Button
-              boxSize={10}
               type="submit"
               onClick={handleSubmit}
               color={"#9D3440"}
@@ -133,16 +132,29 @@ function ChattBox() {
 
 export default ChattBox;
 
+const back = {
+  width: "30rem",
+  display: "flex",
+  justifyContent: "flex-start",
+  "@media screen and (max-width: 600px)": {
+    width: "19rem",
+  },
+};
+
 const input = {
   width: "25rem",
   height: "3rem",
   margin: "0.3rem",
+  borderRadius: "2rem",
+  "@media screen and (max-width: 600px)": {
+    width: "13rem",
+  },
 };
 
 const chatBody = {
   width: "95%",
   height: "30rem",
-  border: "1px solid black",
+
   overflowY: "auto",
 };
 
@@ -160,4 +172,8 @@ const chatBox = {
   width: "33rem",
   Height: "30rem",
   borderRadius: "1.3rem",
+  "@media screen and (max-width: 600px)": {
+    width: "20rem",
+    height: "29rem",
+  },
 };
