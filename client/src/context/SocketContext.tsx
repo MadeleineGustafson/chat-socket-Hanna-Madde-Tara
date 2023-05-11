@@ -27,6 +27,7 @@ interface ContextValues {
   setUsername: (name: string) => void;
   setRooms: React.Dispatch<React.SetStateAction<string[]>>;
   sendIsTyping: (isTyping: boolean) => void;
+  usersTyping: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -95,10 +96,26 @@ function SocketProvider({ children }: PropsWithChildren) {
       setMessages((messages) => [...messages, { name, message }]);
     }
 
+    // function handleUserTyping(isTyping: boolean, name: string) {
+    //   console.log(isTyping, name);
+    //   // push [...prevState, name])
+    //   // remove prevState.filter((user) => user !== name)
+    // }
+
     function handleUserTyping(isTyping: boolean, name: string) {
-      console.log(isTyping, name);
-      // push [...prevState, name])
-      // remove prevState.filter((user) => user !== name)
+      if (isTyping) {
+        setUsersTyping((prevUsersTyping) => {
+          const newUsersTyping = [...prevUsersTyping];
+          if (!newUsersTyping.includes(name)) {
+            newUsersTyping.push(name);
+          }
+          return newUsersTyping;
+        });
+      } else {
+        setUsersTyping((prevUsersTyping) =>
+          prevUsersTyping.filter((user) => user !== name)
+        );
+      }
     }
 
     socket.on("connect", connect);
@@ -131,6 +148,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         setUsername,
         sendMessage,
         sendIsTyping,
+        usersTyping,
       }}
     >
       {children}

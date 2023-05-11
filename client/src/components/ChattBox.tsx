@@ -6,15 +6,19 @@ import {
   IconButton,
   Input,
   Stack,
+  Text,
 } from "@chakra-ui/react";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
 import { useSocket } from "../context/SocketContext";
 import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage, leaveRoom, setRooms, sendIsTyping } = useSocket();
+  const [isTyping, setIsTyping] = useState(false);
+
+  const { room, sendMessage, leaveRoom, setRooms, sendIsTyping, usersTyping } =
+    useSocket();
   const timerRef = useRef<number>();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -53,6 +57,14 @@ function ChattBox() {
     }, 5000);
   };
 
+  useEffect(() => {
+    if (usersTyping.length > 0) {
+      setIsTyping(true);
+    } else {
+      setIsTyping(false);
+    }
+  }, [usersTyping]);
+
   return (
     <>
       <Heading marginTop="2rem" as="h2" size="xl" color="#e0e5cb">
@@ -76,7 +88,9 @@ function ChattBox() {
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
-        {/* {isTyping && <Text>Någon skriver ett meddelande...</Text>} */}
+
+        {isTyping && <Text> Someone is typing...</Text>}
+
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
             <FormControl id="input">
