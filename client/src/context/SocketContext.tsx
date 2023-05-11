@@ -23,9 +23,11 @@ interface ContextValues {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   sendMessage: (message: string) => void;
   joinRoom: (room: string) => void;
-  leaveRoom: () =>void;
+  leaveRoom: () => void;
   setUsername: (name: string) => void;
   setRooms: React.Dispatch<React.SetStateAction<string[]>>;
+  sendIsTyping: (isTyping: boolean) => void;
+  usersTyping: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -40,6 +42,7 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [usersTyping, setUsersTyping] = useState<string[]>([]);
 
   const setUsername = (name: string) => {
     setName(name);
@@ -48,6 +51,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   const joinRoom = (room: string) => {
     socket.emit("join", room, () => {
       setRoom(room);
+      setMessages([]);
     });
   };
 
@@ -55,19 +59,19 @@ function SocketProvider({ children }: PropsWithChildren) {
     if (room !== undefined) {
       socket.emit("leave", room);
     }
-    setRoom("");
+    setRoom(undefined);
+    setMessages([]);
   };
 
   const sendMessage = (message: string) => {
     if (room) {
       socket.emit("message", room, message);
-      // setMessages([...messages, { name, message }]);
     }
   };
 
-  useEffect(() => {
-    setMessages([]);
-  }, [room]);
+  const sendIsTyping = (isTyping: boolean) => {
+    socket.emit("typing", isTyping);
+  };
 
   useEffect(() => {
     if (name) {
@@ -79,16 +83,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     function updateRooms(rooms: string[]) {
       setRooms(rooms);
     }
-  
-    socket.on("rooms", updateRooms);
-  
-    return () => {
-      socket.off("rooms", updateRooms);
-    };
-  }, []);
-  
 
-  useEffect(() => {
     function connect() {
       console.log("connected to server");
     }
@@ -101,19 +96,40 @@ function SocketProvider({ children }: PropsWithChildren) {
       setMessages((messages) => [...messages, { name, message }]);
     }
 
-    
+    // function handleUserTyping(isTyping: boolean, name: string) {
+    //   console.log(isTyping, name);
+    //   // push [...prevState, name])
+    //   // remove prevState.filter((user) => user !== name)
+    // }
+
+    function handleUserTyping(isTyping: boolean, name: string) {
+      if (isTyping) {
+        setUsersTyping((prevUsersTyping) => {
+          const newUsersTyping = [...prevUsersTyping];
+          if (!newUsersTyping.includes(name)) {
+            newUsersTyping.push(name);
+          }
+          return newUsersTyping;
+        });
+      } else {
+        setUsersTyping((prevUsersTyping) =>
+          prevUsersTyping.filter((user) => user !== name)
+        );
+      }
+    }
 
     socket.on("connect", connect);
-
     socket.on("disconnect", disconnect);
-
     socket.on("message", message);
+    socket.on("rooms", updateRooms);
+    socket.on("typing", handleUserTyping);
 
-    // Städar upp
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
+      socket.off("rooms", updateRooms);
+      socket.off("typing", handleUserTyping);
     };
   }, []);
 
@@ -121,16 +137,18 @@ function SocketProvider({ children }: PropsWithChildren) {
     <SocketContext.Provider
       value={{
         socket,
-        setUsername,
         name,
         joinRoom,
         leaveRoom,
         room,
-        sendMessage,
+        rooms,
         messages,
         setMessages,
-        rooms,    
         setRooms,
+        setUsername,
+        sendMessage,
+        sendIsTyping,
+        usersTyping,
       }}
     >
       {children}

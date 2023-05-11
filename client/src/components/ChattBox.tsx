@@ -6,21 +6,33 @@ import {
   IconButton,
   Input,
   Stack,
+  Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { IoReturnDownBackOutline, IoSend } from "react-icons/io5";
 import { useSocket } from "../context/SocketContext";
 import SpeechBubble from "./SpeechBubble";
 
 function ChattBox() {
   const [messages, setMessage] = useState("");
-  const { room, sendMessage, leaveRoom, setRooms } = useSocket();
+  const [, setIsTyping] = useState(false);
+
+  const { room, sendMessage, leaveRoom, setRooms, sendIsTyping, usersTyping } =
+    useSocket();
+  const timerRef = useRef<number>();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("chattbox");
     setMessage("");
     sendMessage(messages);
+
+    // Ta bort timer och skicka till server.
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      sendIsTyping(false);
+      timerRef.current = undefined;
+    }
   };
 
   const handleLeaveRoom = () => {
@@ -28,24 +40,64 @@ function ChattBox() {
     setRooms((prevRooms) => prevRooms.filter((prevRoom) => prevRoom !== room));
   };
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+    // Började användaren skriva? Svar: Vid första bokstaven nedtryckt
+    // Slutade användaren skriva? Svar: När användaren trycker på enter eller när användaren inte har tyckt på något på 5 sekunder
+
+    if (!timerRef.current) {
+      sendIsTyping(true);
+    }
+
+    // Debounce
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      sendIsTyping(false);
+      timerRef.current = undefined;
+    }, 5000);
+  };
+
+  useEffect(() => {
+    if (usersTyping.length > 0) {
+      setIsTyping(true);
+    } else {
+      setIsTyping(false);
+    }
+  }, [usersTyping]);
+
   return (
     <>
-      <Heading color={"#FBC189"}>{room}</Heading>
+      <Heading marginTop="2rem" as="h2" size="xl" color="#e0e5cb">
+        {room}
+      </Heading>
       <Box sx={chatBox}>
-        <IconButton
-          variant="outline"
-          color="black"
-          aria-label="plus"
-          fontSize="40px"
-          boxSize="12"
-          border="none"
-          icon={<IoReturnDownBackOutline />}
-          onClick={handleLeaveRoom}
-          _hover={{ bg: "#ee4c5f", opacity: "70%" }}
-        />
+        <Box width="30rem" display="flex" justifyContent="flex-start">
+          <IconButton
+            variant="outline"
+            color="#9D3440"
+            aria-label="plus"
+            fontSize="40px"
+            boxSize="12"
+            border="none"
+            icon={<IoReturnDownBackOutline />}
+            onClick={handleLeaveRoom}
+            _hover={{ color: "#EE4C5F", opacity: "70%" }}
+          />
+        </Box>
+
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
+
+        {usersTyping.length > 0 &&
+          (usersTyping.length <= 3 ? (
+            <Text>
+              {usersTyping.join(" & ")} {usersTyping.length > 1 ? "are" : "is"}{" "}
+              typing...
+            </Text>
+          ) : (
+            <Text>Several people are typing...</Text>
+          ))}
 
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
@@ -59,18 +111,18 @@ function ChattBox() {
                 value={messages}
                 bg="#FF9587"
                 opacity="40%"
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={handleInputChange}
               />
             </FormControl>
             <Button
-              as={IoSend}
-              boxSize={6}
+              boxSize={10}
               type="submit"
+              onClick={handleSubmit}
               color={"#9D3440"}
               bg="#F9EFDD"
               _hover={{ bg: "#FF9587", opacity: "40%" }}
             >
-              {/* <Icon as={IoSend} boxSize={6} /> */}
+              <IoSend />
             </Button>
           </Stack>
         </form>
@@ -89,7 +141,7 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "35rem",
+  height: "30rem",
   border: "1px solid black",
   overflowY: "auto",
 };
