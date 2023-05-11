@@ -5,8 +5,8 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
-  const [isLargerThanOrEqual820] = useMediaQuery("(min-width: 820px)");
-  const [isSmallerThan819] = useMediaQuery("(max-width: 819px)");
+  const [isLargerThanOrEqual820] = useMediaQuery("(min-width: 850px)");
+  const [isSmallerThan819] = useMediaQuery("(max-width: 850px)");
   const { name, room } = useSocket();
   return (
     <>
