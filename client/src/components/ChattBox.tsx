@@ -170,9 +170,11 @@ const input = {
 
 const chatBody = {
   width: "95%",
-  height: "28rem",
-
+  height: "33rem",
   overflowY: "auto",
+  "@media screen and (max-width: 850px)": {
+    height: "40rem",
+  },
 };
 
 const flex = {
@@ -187,10 +189,14 @@ const chatBox = {
   justifyContent: "center",
   alignItems: "center",
   width: "33rem",
-  Height: "28rem",
+  Height: "33rem",
   borderRadius: "1.3rem",
+  "@media screen and (max-width: 850px)": {
+    width: "33rem",
+    height: "40rem",
+  },
   "@media screen and (max-width: 600px)": {
     width: "20rem",
-    height: "29rem",
+    height: "30rem",
   },
 };
