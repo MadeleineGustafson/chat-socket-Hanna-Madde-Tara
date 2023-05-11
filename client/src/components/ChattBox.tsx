@@ -67,11 +67,17 @@ function ChattBox() {
 
   return (
     <>
-      <Heading marginTop="2rem" as="h2" size="xl" color="#e0e5cb">
+      <Heading
+        fontFamily="Rubik"
+        marginTop="2rem"
+        as="h2"
+        fontSize="1.5rem"
+        color="#e0e5cb"
+      >
         {room}
       </Heading>
       <Box sx={chatBox}>
-        <Box width="30rem" display="flex" justifyContent="flex-start">
+        <Box sx={back}>
           <IconButton
             variant="outline"
             color="#9D3440"
@@ -91,39 +97,41 @@ function ChattBox() {
 
         {usersTyping.length > 0 &&
           (usersTyping.length <= 3 ? (
-            <Text>
-              {usersTyping.join(" & ")} {usersTyping.length > 1 ? "are" : "is"}{" "}
-              typing...
+            <Text color="#9D3440" fontStyle="italic">
+              {usersTyping.join(" & ")} {usersTyping.length > 1} skriver...
             </Text>
           ) : (
-            <Text>Several people are typing...</Text>
+            <Text color="#9D3440" fontStyle="italic">
+              Flera användare skriver...
+            </Text>
           ))}
 
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
-            <FormControl id="input">
-              <Input
-                sx={input}
-                name="message"
-                placeholder="Write a message..."
-                _placeholder={{ color: "#9D3440" }}
-                type="text"
-                value={messages}
-                bg="#FF9587"
-                opacity="40%"
-                onChange={handleInputChange}
-              />
-            </FormControl>
-            <Button
-              boxSize={10}
-              type="submit"
-              onClick={handleSubmit}
-              color={"#9D3440"}
-              bg="#F9EFDD"
-              _hover={{ bg: "#FF9587", opacity: "40%" }}
-            >
-              <IoSend />
-            </Button>
+            <Box sx={inputBox}>
+              <FormControl id="input">
+                <Input
+                  sx={input}
+                  name="message"
+                  placeholder="Write a message..."
+                  _placeholder={{ color: "#9D3440" }}
+                  type="text"
+                  value={messages}
+                  bg="#FF9587"
+                  opacity="40%"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                color={"#9D3440"}
+                bg="#F9EFDD"
+                _hover={{ bg: "#FF9587", opacity: "40%" }}
+              >
+                <IoSend size="xl" fontSize="xl" />
+              </Button>
+            </Box>
           </Stack>
         </form>
       </Box>
@@ -133,16 +141,37 @@ function ChattBox() {
 
 export default ChattBox;
 
+const back = {
+  width: "30rem",
+  display: "flex",
+  justifyContent: "flex-start",
+  "@media screen and (max-width: 600px)": {
+    width: "19rem",
+  },
+};
+
+const inputBox = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 const input = {
   width: "25rem",
   height: "3rem",
   margin: "0.3rem",
+  borderRadius: "2rem",
+  display: "flex",
+
+  "@media screen and (max-width: 600px)": {
+    width: "13rem",
+  },
 };
 
 const chatBody = {
   width: "95%",
-  height: "30rem",
-  border: "1px solid black",
+  height: "28rem",
+
   overflowY: "auto",
 };
 
@@ -158,6 +187,10 @@ const chatBox = {
   justifyContent: "center",
   alignItems: "center",
   width: "33rem",
-  Height: "30rem",
+  Height: "28rem",
   borderRadius: "1.3rem",
+  "@media screen and (max-width: 600px)": {
+    width: "20rem",
+    height: "29rem",
+  },
 };

@@ -23,6 +23,7 @@ const TopDrawer = () => {
         aria-label="Open menu"
         variant="ghost"
         size="lg"
+        fontSize="3xl"
         color={"#e0e5cb"}
         bg="#ee4c5f"
         _hover={{ bg: "#ee4c5f", opacity: "70%" }}

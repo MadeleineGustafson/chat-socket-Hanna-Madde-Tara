@@ -20,11 +20,16 @@ export default function StartPage() {
                 <ChattBox />
               ) : (
                 <>
-                  <Heading color="#F9EFDD" as="h1" size="2xl">
+                  <Heading
+                    fontFamily="Rubik"
+                    color="#F9EFDD"
+                    as="h1"
+                    size="2xl"
+                  >
                     Hej {name}!
                   </Heading>
 
-                  <Heading color="#F9EFDD" as="h3" size="l">
+                  <Heading fontFamily="Rubik" color="#F9EFDD" as="h3" size="l">
                     Välj ett rum i menyn och börja chatta!
                   </Heading>
                 </>
@@ -37,11 +42,17 @@ export default function StartPage() {
                 <ChattBox />
               ) : (
                 <>
-                  <Heading color="#F9EFDD" as="h1" size="2xl" mt={"10rem"}>
+                  <Heading
+                    fontFamily="Rubik"
+                    color="#F9EFDD"
+                    as="h1"
+                    size="2xl"
+                    mt={"10rem"}
+                  >
                     Hej {name}!
                   </Heading>
 
-                  <Heading color="#F9EFDD" as="h3" size="l">
+                  <Heading fontFamily="Rubik" color="#F9EFDD" as="h3" size="l">
                     Välj ett rum i menyn och börja chatta!
                   </Heading>
                 </>

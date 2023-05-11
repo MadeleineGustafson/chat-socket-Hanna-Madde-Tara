@@ -25,29 +25,48 @@ function RoomsList() {
             color={"#FFF2C5"}
             display="flex"
             justifyContent="center"
+            fontFamily="Rubik"
           >
             Aktiva rum
           </Text>
-          {rooms.map((room) => (
+          {rooms.length === 0 ? (
             <Box
-              as="button"
               height="34px"
-              width="150px"
-              border="none"
               m="0.5rem"
-              borderRadius="8px"
-              fontSize="14px"
+              fontSize="12px"
               fontWeight="semibold"
-              bg="#FFF2C5"
               display="flex"
-              color="#9D3440"
+              color="#FFF2C5"
               justifyContent="center"
               alignItems="center"
-              onClick={() => handleJoinRoom(room)}
+              fontFamily="Rubik"
             >
-              {room}
+              Just nu finns inga aktiva rum
             </Box>
-          ))}
+          ) : (
+            rooms.map((room) => (
+              <Box
+                as="button"
+                key={room}
+                height="34px"
+                width="150px"
+                border="none"
+                m="0.5rem"
+                borderRadius="8px"
+                fontSize="14px"
+                fontWeight="semibold"
+                bg="#FFF2C5"
+                display="flex"
+                color="#9D3440"
+                justifyContent="center"
+                alignItems="center"
+                fontFamily="Rubik"
+                onClick={() => handleJoinRoom(room)}
+              >
+                {room}
+              </Box>
+            ))
+          )}
         </Box>
       </Flex>
     </>

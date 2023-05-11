@@ -19,6 +19,7 @@ function Header({ showMenu }: HeaderProps) {
             size="2xl"
             display="flex"
             alignItems="center"
+            fontFamily="Rubik"
           >
             Babbly <RiChatSmile2Line />
           </Heading>
