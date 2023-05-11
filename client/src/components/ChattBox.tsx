@@ -97,11 +97,13 @@ function ChattBox() {
 
         {usersTyping.length > 0 &&
           (usersTyping.length <= 3 ? (
-            <Text>
+            <Text color="#9D3440" fontStyle="italic">
               {usersTyping.join(" & ")} {usersTyping.length > 1} skriver...
             </Text>
           ) : (
-            <Text>Flera användare skriver...</Text>
+            <Text color="#9D3440" fontStyle="italic">
+              Flera användare skriver...
+            </Text>
           ))}
 
         <form onSubmit={handleSubmit}>

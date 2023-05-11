@@ -1,4 +1,4 @@
-import { Box, IconButton, Input, Text } from "@chakra-ui/react";
+import { Box, IconButton, Input, Text, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { TbSquareRoundedPlus } from "react-icons/tb";
 import { useSocket } from "../context/SocketContext";
@@ -6,11 +6,22 @@ import { useSocket } from "../context/SocketContext";
 function CreateNewRoomBtn() {
   const { joinRoom } = useSocket();
   const [room, setRoom] = useState("");
-  console.log(room);
+  const toast = useToast();
+
   const handleCreateRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     joinRoom(room);
     setRoom("");
+
+    // Display the toast message
+    toast({
+      title: "Rum skapades!",
+      description: `Du har skapat ett nytt rum som heter ${room}`,
+      status: "success",
+      duration: 2000,
+      position: "bottom-left",
+      isClosable: true,
+    });
   };
 
   return (
