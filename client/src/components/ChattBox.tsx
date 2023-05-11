@@ -89,7 +89,7 @@ function ChattBox() {
           <SpeechBubble />
         </Box>
 
-        {isTyping && <Text> Someone is typing...</Text>}
+        {isTyping && <Text> {usersTyping} is typing...</Text>}
 
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
