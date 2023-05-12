@@ -8,7 +8,7 @@ interface HeaderProps {
 }
 
 function Header({ showMenu }: HeaderProps) {
-  const [isSmallerThan819] = useMediaQuery("(max-width: 819px)");
+  const [isSmallerThan849] = useMediaQuery("(max-width: 849px)");
   return (
     <>
       <Box sx={header} bg="#EE4C5F">
@@ -25,7 +25,7 @@ function Header({ showMenu }: HeaderProps) {
             Babbly <RiChatSmile2Line />
           </Heading>
         </Link>
-        {isSmallerThan819 && showMenu && (
+        {isSmallerThan849 && showMenu && (
           <Box position="absolute" top="0" right="0">
             <HamburgerMenu></HamburgerMenu>
           </Box>
