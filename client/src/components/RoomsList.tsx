@@ -9,7 +9,6 @@ function RoomsList() {
   };
 
   return (
-    <>
       <Flex justifyContent="center" bg="#EE4C5F">
         <Box
           display="flex"
@@ -69,7 +68,6 @@ function RoomsList() {
           )}
         </Box>
       </Flex>
-    </>
   );
 }
 

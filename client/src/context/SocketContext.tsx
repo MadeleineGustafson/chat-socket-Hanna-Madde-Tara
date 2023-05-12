@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   createContext,
   PropsWithChildren,
@@ -33,13 +32,11 @@ interface ContextValues {
 const SocketContext = createContext<ContextValues>(null as any);
 
 export const useSocket = () => useContext(SocketContext);
-
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 function SocketProvider({ children }: PropsWithChildren) {
   const [name, setName] = useSessionStorageState("", "name");
   const [room, setRoom] = useState<string>();
-
   const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [usersTyping, setUsersTyping] = useState<string[]>([]);
@@ -95,12 +92,6 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
       setMessages((messages) => [...messages, { name, message }]);
     }
-
-    // function handleUserTyping(isTyping: boolean, name: string) {
-    //   console.log(isTyping, name);
-    //   // push [...prevState, name])
-    //   // remove prevState.filter((user) => user !== name)
-    // }
 
     function handleUserTyping(isTyping: boolean, name: string) {
       if (isTyping) {

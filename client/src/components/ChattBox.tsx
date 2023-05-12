@@ -27,7 +27,6 @@ function ChattBox() {
     setMessage("");
     sendMessage(messages);
 
-    // Ta bort timer och skicka till server.
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       sendIsTyping(false);
@@ -42,14 +41,11 @@ function ChattBox() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
-    // Började användaren skriva? Svar: Vid första bokstaven nedtryckt
-    // Slutade användaren skriva? Svar: När användaren trycker på enter eller när användaren inte har tyckt på något på 5 sekunder
-
+    
     if (!timerRef.current) {
       sendIsTyping(true);
     }
 
-    // Debounce
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       sendIsTyping(false);
@@ -90,11 +86,9 @@ function ChattBox() {
             _hover={{ color: "#EE4C5F", opacity: "70%" }}
           />
         </Box>
-
         <Box sx={chatBody}>
           <SpeechBubble />
         </Box>
-
         {usersTyping.length > 0 &&
           (usersTyping.length <= 3 ? (
             <Text color="#9D3440" fontStyle="italic">
@@ -105,7 +99,6 @@ function ChattBox() {
               Flera användare skriver...
             </Text>
           ))}
-
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={flex}>
             <Box sx={inputBox}>
@@ -162,7 +155,6 @@ const input = {
   margin: "0.3rem",
   borderRadius: "2rem",
   display: "flex",
-
   "@media screen and (max-width: 600px)": {
     width: "13rem",
   },
@@ -171,7 +163,6 @@ const input = {
 const chatBody = {
   width: "95%",
   height: "28rem",
-
   overflowY: "auto",
 };
 
@@ -180,6 +171,7 @@ const flex = {
   flexDirection: "row",
   gap: "0.5rem",
 };
+
 const chatBox = {
   backgroundColor: "#F9EFDD",
   display: "flex",

@@ -17,6 +17,7 @@ function Header({ showMenu }: HeaderProps) {
             color="#FFE897"
             as="h2"
             size="2xl"
+            mt={4}
             display="flex"
             alignItems="center"
             fontFamily="Rubik"
