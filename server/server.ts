@@ -62,7 +62,6 @@ io.on("connection", (socket) => {
 
     // Emit updated list of rooms to all clients
     io.emit("rooms", getRooms());
-
     console.log(`User ${socket.data.name} joined room ${newRoom}`);
 
     ack();
@@ -74,7 +73,6 @@ io.on("connection", (socket) => {
 
     // Update the user's current room to null
     socket.data.room = null;
-
     io.emit("rooms", getRooms());
   });
 
@@ -87,7 +85,6 @@ io.on("connection", (socket) => {
     if (currentRoom) {
       socket.leave(currentRoom);
     }
-
     io.emit("rooms", getRooms());
   });
 });

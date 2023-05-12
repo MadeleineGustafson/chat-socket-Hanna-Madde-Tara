@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   createContext,
   PropsWithChildren,
@@ -95,12 +94,6 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
       setMessages((messages) => [...messages, { name, message }]);
     }
-
-    // function handleUserTyping(isTyping: boolean, name: string) {
-    //   console.log(isTyping, name);
-    //   // push [...prevState, name])
-    //   // remove prevState.filter((user) => user !== name)
-    // }
 
     function handleUserTyping(isTyping: boolean, name: string) {
       if (isTyping) {
