@@ -27,7 +27,6 @@ function ChattBox() {
     setMessage("");
     sendMessage(messages);
 
-    // Ta bort timer och skicka till server.
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       sendIsTyping(false);
@@ -42,14 +41,11 @@ function ChattBox() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
-    // Började användaren skriva? Svar: Vid första bokstaven nedtryckt
-    // Slutade användaren skriva? Svar: När användaren trycker på enter eller när användaren inte har tyckt på något på 5 sekunder
-
+    
     if (!timerRef.current) {
       sendIsTyping(true);
     }
 
-    // Debounce
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       sendIsTyping(false);

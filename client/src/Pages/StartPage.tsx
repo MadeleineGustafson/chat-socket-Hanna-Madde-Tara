@@ -9,7 +9,6 @@ export default function StartPage() {
   const [isSmallerThan849] = useMediaQuery("(max-width: 849px)");
   const { name, room } = useSocket();
   return (
-    <>
       <>
         <Header showMenu={true} />
         <Box sx={flex} bg="#EE4C5F">
@@ -61,7 +60,6 @@ export default function StartPage() {
           )}
         </Box>
       </>
-    </>
   );
 }
 const content = {

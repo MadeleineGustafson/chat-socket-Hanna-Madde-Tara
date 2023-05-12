@@ -14,8 +14,6 @@ const io = new Server<
 // CONNECT
 io.on("connection", (socket) => {
   console.log("a user connected");
-
-  // Store the user's current room (initially null)
   socket.data.room = null;
   io.emit("rooms", getRooms());
 
@@ -49,17 +47,14 @@ io.on("connection", (socket) => {
   socket.on("join", (newRoom: string, ack: () => void) => {
     // Current room
     const currentRoom = socket.data.room;
-
     // If the user is in a room then leave it
     if (currentRoom) {
       socket.leave(currentRoom);
     }
     // Join the new room
     socket.join(newRoom);
-
     // Update the users current room
     socket.data.room = newRoom;
-
     // Emit updated list of rooms to all clients
     io.emit("rooms", getRooms());
     console.log(`User ${socket.data.name} joined room ${newRoom}`);
@@ -70,7 +65,6 @@ io.on("connection", (socket) => {
   // LEAVE A ROOM
   socket.on("leave", (room: string) => {
     socket.leave(room);
-
     // Update the user's current room to null
     socket.data.room = null;
     io.emit("rooms", getRooms());
@@ -79,7 +73,6 @@ io.on("connection", (socket) => {
   // DISCONNECT
   socket.on("disconnect", () => {
     console.log("user disconnected");
-
     // If the user is in a room, leave it before disconnecting
     const currentRoom = socket.data.room;
     if (currentRoom) {

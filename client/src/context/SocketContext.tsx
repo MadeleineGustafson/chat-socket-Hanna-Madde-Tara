@@ -32,13 +32,11 @@ interface ContextValues {
 const SocketContext = createContext<ContextValues>(null as any);
 
 export const useSocket = () => useContext(SocketContext);
-
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 function SocketProvider({ children }: PropsWithChildren) {
   const [name, setName] = useSessionStorageState("", "name");
   const [room, setRoom] = useState<string>();
-
   const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [usersTyping, setUsersTyping] = useState<string[]>([]);
