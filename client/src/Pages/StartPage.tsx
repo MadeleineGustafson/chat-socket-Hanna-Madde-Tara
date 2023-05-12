@@ -5,16 +5,16 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
 export default function StartPage() {
-  const [isLargerThanOrEqual820] = useMediaQuery("(min-width: 820px)");
-  const [isSmallerThan819] = useMediaQuery("(max-width: 819px)");
+  const [isLargerThanOrEqual850] = useMediaQuery("(min-width: 850px)");
+  const [isSmallerThan849] = useMediaQuery("(max-width: 849px)");
   const { name, room } = useSocket();
   return (
     <>
       <>
         <Header showMenu={true} />
         <Box sx={flex} bg="#EE4C5F">
-          {isLargerThanOrEqual820 && <Sidebar />}
-          {isLargerThanOrEqual820 && (
+          {isLargerThanOrEqual850 && <Sidebar />}
+          {isLargerThanOrEqual850 && (
             <Box sx={content}>
               {room ? (
                 <ChattBox />
@@ -36,7 +36,7 @@ export default function StartPage() {
               )}
             </Box>
           )}
-          {isSmallerThan819 && (
+          {isSmallerThan849 && (
             <Box sx={content}>
               {room ? (
                 <ChattBox />
